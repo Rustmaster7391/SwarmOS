@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "wouter";
 import type { SecurityAlert } from "@shared/schema";
 
 export default function SecurityOverview() {
@@ -93,9 +94,11 @@ export default function SecurityOverview() {
               <i className="fas fa-clipboard-list text-gray-400 icon-glow"></i>
               <span className="text-white">Audit Logs</span>
             </div>
-            <Button variant="link" className="text-primary hover:text-primary/80 text-sm p-0 icon-glow">
-              View
-            </Button>
+            <Link href="/audit-logs">
+              <Button variant="link" className="text-primary hover:text-primary/80 text-sm p-0 icon-glow">
+                View
+              </Button>
+            </Link>
           </div>
         </div>
 

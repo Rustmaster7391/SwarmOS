@@ -75,9 +75,6 @@ export default function ActiveSwarms() {
             </div>
             Active Neural Swarms
           </CardTitle>
-          <Button variant="link" className="text-accent hover:text-accent/80 text-sm p-0 transition-colors duration-300">
-            View All
-          </Button>
         </div>
       </CardHeader>
       <CardContent>

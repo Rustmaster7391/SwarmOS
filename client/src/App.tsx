@@ -11,6 +11,7 @@ import Templates from "./pages/templates";
 import Security from "./pages/security";
 import Monitoring from "./pages/monitoring";
 import ApiDocs from "./pages/api-docs";
+import AuditLogs from "./pages/audit-logs";
 import NotFound from "./pages/not-found";
 
 function Router() {
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/security" component={Security} />
       <Route path="/monitoring" component={Monitoring} />
       <Route path="/api-docs" component={ApiDocs} />
+      <Route path="/audit-logs" component={AuditLogs} />
       <Route component={NotFound} />
     </Switch>
   );

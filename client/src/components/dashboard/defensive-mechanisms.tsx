@@ -83,8 +83,12 @@ export default function DefensiveMechanisms() {
               <div className="flex items-start space-x-3 mb-3">
                 <div className={`${mechanism.bgColor} p-2 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300 relative`}>
                   <i className={`${mechanism.icon} ${mechanism.color} icon-glow`}></i>
+                  {/* Static circle */}
+                  <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${mechanism.bgColor.replace('/20', '/60')} border border-white`}></div>
+                  
+                  {/* Blinking circle overlay */}
                   <div 
-                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${mechanism.bgColor.replace('/20', '/60')} border-2 border-white animate-pulse`}
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border border-white`}
                     style={{
                       animation: 'blink 2s infinite',
                       backgroundColor: mechanism.color.includes('green') ? '#10b981' :
