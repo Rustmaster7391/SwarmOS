@@ -253,6 +253,99 @@
     animation: spin 8s linear infinite;
   }
 
+  .animate-float-center {
+    animation: float-center 4s ease-in-out infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  @keyframes float-center {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-2px) scale(1.02); }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes float-particle {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    33% { transform: translateY(-8px) translateX(4px); }
+    66% { transform: translateY(4px) translateX(-6px); }
+  }
+
+  @keyframes dash-flow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 24; }
+  }
+
+  /* Individual orbit animations for each agent */
+  @keyframes orbit-0 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(8px) translateY(-4px); }
+    50% { transform: translate(-50%, -50%) translateX(0px) translateY(-8px); }
+    75% { transform: translate(-50%, -50%) translateX(-8px) translateY(-4px); }
+  }
+
+  @keyframes orbit-1 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-6px) translateY(6px); }
+    50% { transform: translate(-50%, -50%) translateX(-12px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(-6px) translateY(-6px); }
+  }
+
+  @keyframes orbit-2 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(4px) translateY(8px); }
+    50% { transform: translate(-50%, -50%) translateX(8px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(4px) translateY(-8px); }
+  }
+
+  @keyframes orbit-3 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-10px) translateY(-2px); }
+    50% { transform: translate(-50%, -50%) translateX(0px) translateY(-10px); }
+    75% { transform: translate(-50%, -50%) translateX(10px) translateY(-2px); }
+  }
+
+  @keyframes orbit-4 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(6px) translateY(-8px); }
+    50% { transform: translate(-50%, -50%) translateX(12px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(6px) translateY(8px); }
+  }
+
+  @keyframes orbit-5 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-4px) translateY(10px); }
+    50% { transform: translate(-50%, -50%) translateX(-8px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(-4px) translateY(-10px); }
+  }
+
+  /* Drift animations for particles */
+  @keyframes drift-0 {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(20px) translateY(-15px); }
+  }
+
+  @keyframes drift-1 {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(-25px) translateY(20px); }
+  }
+
+  @keyframes drift-2 {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(15px) translateY(25px); }
+  }
+
+  @keyframes drift-3 {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(-20px) translateY(-10px); }
+  }
+
   .gradient-border {
     position: relative;
     background: linear-gradient(45deg, hsl(271 91% 65%), hsl(271 91% 75%));
