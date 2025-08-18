@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
+import logoPath from "@assets/image_1755530594258.png";
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: 'fas fa-chart-line' },
@@ -30,14 +31,17 @@ export default function Sidebar() {
       {/* Logo & Brand */}
       <div className="p-6 border-b neon-border relative z-10">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary via-accent to-primary rounded-xl flex items-center justify-center shadow-lg relative">
-            <div className="absolute inset-0 bg-primary/20 rounded-xl animate-pulse" />
-            <i className="fas fa-layer-group text-white text-lg relative z-10"></i>
+          <div className="w-10 h-10 relative">
+            <img 
+              src={logoPath} 
+              alt="SwarmWare Logo" 
+              className="w-full h-full object-contain filter drop-shadow-sm"
+            />
           </div>
           <div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">SwarmWare</span>
+            <span className="text-xl font-bold text-[#00E5CC]">SwarmWare</span>
             <div className="flex items-center space-x-1 mt-1">
-              <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
+              <div className="w-1 h-1 bg-[#00E5CC] rounded-full animate-pulse" />
               <p className="text-xs text-muted-foreground">Neural Network OS</p>
             </div>
           </div>
