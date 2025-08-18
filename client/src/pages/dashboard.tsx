@@ -54,7 +54,7 @@ export default function Dashboard() {
           onCreateSwarm={() => setIsCreateSwarmModalOpen(true)}
         />
         
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-6 data-grid matrix-rain">
           <StatsCards />
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">

@@ -69,8 +69,9 @@ export default function StatsCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {statsConfig.map((stat, index) => (
-        <Card key={index} className="bg-dark-100 border-gray-700 card-glow hover:card-glow transition-all duration-300">
-          <CardContent className="p-6">
+        <Card key={index} className="cyber-card neon-border hover:shadow-lg hover:shadow-primary/10 transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <CardContent className="p-6 relative">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-400">{stat.title}</p>

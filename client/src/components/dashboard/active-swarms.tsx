@@ -65,14 +65,17 @@ export default function ActiveSwarms() {
   const activeSwarms = swarms?.filter(swarm => swarm.status === 'active').slice(0, 3) || [];
 
   return (
-    <Card className="bg-dark-100 border-gray-700 card-glow">
-      <CardHeader>
+    <Card className="cyber-card neon-border relative overflow-hidden group">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <CardHeader className="relative">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold text-white flex items-center">
-            <i className="fas fa-layer-group mr-2 icon-glow"></i>
-            Active Swarms
+            <div className="w-8 h-8 bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg flex items-center justify-center mr-3">
+              <i className="fas fa-layer-group text-primary"></i>
+            </div>
+            Active Neural Swarms
           </CardTitle>
-          <Button variant="link" className="text-primary hover:text-primary/80 text-sm p-0 icon-glow">
+          <Button variant="link" className="text-accent hover:text-accent/80 text-sm p-0 transition-colors duration-300">
             View All
           </Button>
         </div>
