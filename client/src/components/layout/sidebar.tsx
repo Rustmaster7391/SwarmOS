@@ -19,8 +19,8 @@ export default function Sidebar() {
       {/* Logo & Brand */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <i className="fas fa-layer-group text-white text-sm"></i>
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center card-glow pulse-purple">
+            <i className="fas fa-layer-group text-white text-sm icon-glow"></i>
           </div>
           <span className="text-xl font-bold text-white">SwarmWare</span>
         </div>
@@ -32,16 +32,18 @@ export default function Sidebar() {
         {navigation.map((item) => {
           const isActive = location === item.href;
           return (
-            <Link key={item.name} href={item.href}>
-              <a className={cn(
-                "flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors",
-                isActive 
-                  ? "bg-primary/20 text-primary border border-primary/30"
-                  : "text-gray-300 hover:bg-dark-300 hover:text-white"
-              )}>
-                <i className={`${item.icon} w-5`}></i>
-                <span>{item.name}</span>
-              </a>
+            <Link key={item.name} href={item.href} className={cn(
+              "flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors group",
+              isActive 
+                ? "bg-primary/20 text-primary border border-primary/30 card-glow"
+                : "text-gray-300 hover:bg-dark-300 hover:text-white"
+            )}>
+              <i className={cn(
+                item.icon, 
+                "w-5 transition-all duration-300",
+                isActive ? "icon-glow" : "group-hover:icon-glow"
+              )}></i>
+              <span>{item.name}</span>
             </Link>
           );
         })}

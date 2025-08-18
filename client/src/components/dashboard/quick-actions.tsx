@@ -54,9 +54,12 @@ export default function QuickActions({
   ];
 
   return (
-    <Card className="bg-dark-100 border-gray-700">
+    <Card className="bg-dark-100 border-gray-700 card-glow">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-white">Quick Actions</CardTitle>
+        <CardTitle className="text-lg font-semibold text-white flex items-center">
+          <i className="fas fa-bolt mr-2 icon-glow"></i>
+          Quick Actions
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -64,12 +67,12 @@ export default function QuickActions({
             <Button
               key={index}
               variant="ghost"
-              className="w-full text-left p-4 h-auto bg-dark-300 hover:bg-dark-200 border border-gray-600 group justify-start"
+              className="w-full text-left p-4 h-auto bg-dark-300 hover:bg-dark-200 border border-gray-600 group justify-start card-glow hover:card-glow transition-all duration-300"
               onClick={action.onClick}
             >
               <div className="flex items-center space-x-3">
-                <div className={`${action.iconBg} ${action.hoverBg} p-2 rounded-lg transition-colors`}>
-                  <i className={`${action.icon} ${action.iconColor}`}></i>
+                <div className={`${action.iconBg} ${action.hoverBg} p-2 rounded-lg transition-colors gradient-border`}>
+                  <i className={`${action.icon} ${action.iconColor} icon-glow`}></i>
                 </div>
                 <div>
                   <p className="font-medium text-white">{action.title}</p>

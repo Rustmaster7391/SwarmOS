@@ -32,17 +32,17 @@ export default function TopBar({ title, subtitle, onCreateSwarm }: TopBarProps) 
           </div>
           
           {/* Notifications */}
-          <button className="relative p-2 text-gray-400 hover:text-white">
-            <i className="fas fa-bell"></i>
-            <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+          <button className="relative p-2 text-gray-400 hover:text-white transition-all">
+            <i className="fas fa-bell icon-glow"></i>
+            <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center pulse-purple">
               3
             </span>
           </button>
 
           {/* Create Swarm Button */}
           {onCreateSwarm && (
-            <Button onClick={onCreateSwarm} className="bg-primary hover:bg-blue-700">
-              <i className="fas fa-plus mr-2"></i>
+            <Button onClick={onCreateSwarm} className="bg-primary hover:bg-primary/80 card-glow transition-all duration-300">
+              <i className="fas fa-plus mr-2 icon-glow"></i>
               Create Swarm
             </Button>
           )}

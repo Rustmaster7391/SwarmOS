@@ -69,7 +69,7 @@ export default function StatsCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {statsConfig.map((stat, index) => (
-        <Card key={index} className="bg-dark-100 border-gray-700">
+        <Card key={index} className="bg-dark-100 border-gray-700 card-glow hover:card-glow transition-all duration-300">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -80,13 +80,13 @@ export default function StatsCards() {
                   stat.trendType === 'warning' ? 'text-warning' :
                   'text-gray-400'
                 }`}>
-                  {stat.trendType === 'positive' && <i className="fas fa-arrow-up"></i>}
-                  {stat.trendType === 'warning' && <i className="fas fa-exclamation-triangle"></i>}
+                  {stat.trendType === 'positive' && <i className="fas fa-arrow-up icon-glow"></i>}
+                  {stat.trendType === 'warning' && <i className="fas fa-exclamation-triangle icon-glow"></i>}
                   <span>{stat.trend}</span>
                 </p>
               </div>
-              <div className={`${stat.iconBg} p-3 rounded-lg`}>
-                <i className={`${stat.icon} ${stat.iconColor} text-xl`}></i>
+              <div className={`${stat.iconBg} p-3 rounded-lg gradient-border`}>
+                <i className={`${stat.icon} ${stat.iconColor} text-xl icon-glow`}></i>
               </div>
             </div>
           </CardContent>

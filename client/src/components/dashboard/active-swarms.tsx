@@ -65,11 +65,14 @@ export default function ActiveSwarms() {
   const activeSwarms = swarms?.filter(swarm => swarm.status === 'active').slice(0, 3) || [];
 
   return (
-    <Card className="bg-dark-100 border-gray-700">
+    <Card className="bg-dark-100 border-gray-700 card-glow">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-white">Active Swarms</CardTitle>
-          <Button variant="link" className="text-primary hover:text-blue-400 text-sm p-0">
+          <CardTitle className="text-lg font-semibold text-white flex items-center">
+            <i className="fas fa-layer-group mr-2 icon-glow"></i>
+            Active Swarms
+          </CardTitle>
+          <Button variant="link" className="text-primary hover:text-primary/80 text-sm p-0 icon-glow">
             View All
           </Button>
         </div>
@@ -78,16 +81,16 @@ export default function ActiveSwarms() {
         <div className="space-y-4">
           {activeSwarms.length === 0 ? (
             <div className="text-center text-gray-400 py-8">
-              <i className="fas fa-layer-group text-3xl mb-2"></i>
+              <i className="fas fa-layer-group text-3xl mb-2 icon-glow"></i>
               <p>No active swarms</p>
               <p className="text-sm">Create your first swarm to get started</p>
             </div>
           ) : (
             activeSwarms.map((swarm) => (
-              <div key={swarm.id} className="p-4 bg-dark-300 rounded-lg border border-gray-600">
+              <div key={swarm.id} className="p-4 bg-dark-300 rounded-lg border border-gray-600 card-glow hover:card-glow transition-all duration-300">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-3">
-                    <div className={`w-3 h-3 ${getStatusColor(swarm.status || 'inactive')} rounded-full`}></div>
+                    <div className={`w-3 h-3 ${getStatusColor(swarm.status || 'inactive')} rounded-full pulse-purple`}></div>
                     <span className="font-medium text-white">{swarm.name}</span>
                   </div>
                   <span className="text-xs text-gray-400">

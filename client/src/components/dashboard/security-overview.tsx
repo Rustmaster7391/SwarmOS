@@ -48,12 +48,15 @@ export default function SecurityOverview() {
   const alertCount = alerts?.length || 0;
 
   return (
-    <Card className="bg-dark-100 border-gray-700">
+    <Card className="bg-dark-100 border-gray-700 card-glow">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-white">Security Overview</CardTitle>
+          <CardTitle className="text-lg font-semibold text-white flex items-center">
+            <i className="fas fa-shield-alt mr-2 icon-glow"></i>
+            Security Overview
+          </CardTitle>
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-success rounded-full"></div>
+            <div className="w-2 h-2 bg-success rounded-full pulse-purple"></div>
             <span className="text-sm text-success">Swarm Shield Active</span>
           </div>
         </div>
@@ -61,36 +64,36 @@ export default function SecurityOverview() {
       <CardContent>
         {/* Security Metrics */}
         <div className="space-y-4 mb-6">
-          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600">
+          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600 card-glow hover:card-glow transition-all duration-300">
             <div className="flex items-center space-x-3">
-              <i className="fas fa-lock text-success"></i>
+              <i className="fas fa-lock text-success icon-glow"></i>
               <span className="text-white">Encrypted Channels</span>
             </div>
             <span className="text-success">847/847</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600">
+          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600 card-glow hover:card-glow transition-all duration-300">
             <div className="flex items-center space-x-3">
-              <i className="fas fa-eye text-primary"></i>
+              <i className="fas fa-eye text-primary icon-glow"></i>
               <span className="text-white">Anomaly Detection</span>
             </div>
             <span className="text-primary">Monitoring</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600">
+          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600 card-glow hover:card-glow transition-all duration-300">
             <div className="flex items-center space-x-3">
-              <i className="fas fa-exclamation-triangle text-warning"></i>
+              <i className="fas fa-exclamation-triangle text-warning icon-glow"></i>
               <span className="text-white">Recent Alerts</span>
             </div>
             <span className="text-warning">{alertCount} pending</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600">
+          <div className="flex items-center justify-between p-3 bg-dark-300 rounded-lg border border-gray-600 card-glow hover:card-glow transition-all duration-300">
             <div className="flex items-center space-x-3">
-              <i className="fas fa-clipboard-list text-gray-400"></i>
+              <i className="fas fa-clipboard-list text-gray-400 icon-glow"></i>
               <span className="text-white">Audit Logs</span>
             </div>
-            <Button variant="link" className="text-primary hover:text-blue-400 text-sm p-0">
+            <Button variant="link" className="text-primary hover:text-primary/80 text-sm p-0 icon-glow">
               View
             </Button>
           </div>

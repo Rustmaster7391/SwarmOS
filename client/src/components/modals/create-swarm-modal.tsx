@@ -56,7 +56,7 @@ export default function CreateSwarmModal({ open, onOpenChange }: CreateSwarmModa
     defaultValues: {
       name: "",
       description: "",
-      templateId: "",
+      templateId: "none",
       agentCount: 12,
       maxAgents: 100,
       autoScaling: true,
@@ -168,7 +168,7 @@ export default function CreateSwarmModal({ open, onOpenChange }: CreateSwarmModa
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="bg-dark-300 border-gray-600">
-                      <SelectItem value="">Custom Configuration</SelectItem>
+                      <SelectItem value="none">Custom Configuration</SelectItem>
                       {templates?.map((template) => (
                         <SelectItem key={template.id} value={template.id}>
                           {template.name}
