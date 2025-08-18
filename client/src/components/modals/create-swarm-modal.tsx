@@ -6,6 +6,7 @@ import { z } from "zod";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -114,6 +115,9 @@ export default function CreateSwarmModal({ open, onOpenChange }: CreateSwarmModa
       <DialogContent className="bg-dark-100 border-gray-700 max-w-2xl max-h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-white">Create New Swarm</DialogTitle>
+          <DialogDescription className="text-gray-400">
+            Configure and deploy a new AI agent swarm with your desired settings and security options.
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
@@ -169,7 +173,7 @@ export default function CreateSwarmModal({ open, onOpenChange }: CreateSwarmModa
                     </FormControl>
                     <SelectContent className="bg-dark-300 border-gray-600">
                       <SelectItem value="none">Custom Configuration</SelectItem>
-                      {templates?.map((template) => (
+                      {templates?.filter(template => template.id && template.name).map((template) => (
                         <SelectItem key={template.id} value={template.id}>
                           {template.name}
                         </SelectItem>
