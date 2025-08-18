@@ -6,7 +6,7 @@ import SwarmActivity from "@/components/dashboard/swarm-activity";
 import QuickActions from "@/components/dashboard/quick-actions";
 import ActiveSwarms from "@/components/dashboard/active-swarms";
 import SecurityOverview from "@/components/dashboard/security-overview";
-import TemplatesPreview from "@/components/dashboard/templates-preview";
+import DefensiveMechanisms from "@/components/dashboard/defensive-mechanisms";
 import CreateSwarmModal from "@/components/modals/create-swarm-modal";
 import { useWebSocket } from "@/hooks/use-websocket";
 import { useEffect } from "react";
@@ -72,7 +72,7 @@ export default function Dashboard() {
             <SecurityOverview />
           </div>
           
-          <TemplatesPreview />
+          <DefensiveMechanisms />
         </main>
       </div>
 
