@@ -83,7 +83,24 @@ export default function DefensiveMechanisms() {
               <div className="flex items-start space-x-3 mb-3">
                 <div className={`${mechanism.bgColor} p-2 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300 relative`}>
                   <i className={`${mechanism.icon} ${mechanism.color} icon-glow`}></i>
-                  <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${mechanism.bgColor.replace('/20', '')} animate-pulse`}></div>
+                  <div 
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${mechanism.bgColor.replace('/20', '/60')} border-2 border-white animate-pulse`}
+                    style={{
+                      animation: 'blink 2s infinite',
+                      backgroundColor: mechanism.color.includes('green') ? '#10b981' :
+                                     mechanism.color.includes('blue') ? '#3b82f6' :
+                                     mechanism.color.includes('purple') ? '#8b5cf6' :
+                                     mechanism.color.includes('red') ? '#ef4444' :
+                                     mechanism.color.includes('yellow') ? '#eab308' :
+                                     mechanism.color.includes('orange') ? '#f97316' : '#6b7280',
+                      boxShadow: `0 0 8px ${mechanism.color.includes('green') ? '#10b981' :
+                                            mechanism.color.includes('blue') ? '#3b82f6' :
+                                            mechanism.color.includes('purple') ? '#8b5cf6' :
+                                            mechanism.color.includes('red') ? '#ef4444' :
+                                            mechanism.color.includes('yellow') ? '#eab308' :
+                                            mechanism.color.includes('orange') ? '#f97316' : '#6b7280'}`
+                    }}
+                  ></div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">

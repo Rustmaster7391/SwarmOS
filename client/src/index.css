@@ -218,6 +218,25 @@
     }
   }
 
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    25% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    75% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   .gradient-border {
     position: relative;
     background: linear-gradient(45deg, hsl(271 91% 65%), hsl(271 91% 75%));
