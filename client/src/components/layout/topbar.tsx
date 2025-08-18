@@ -19,10 +19,10 @@ export default function TopBar({ title, subtitle, onCreateSwarm }: TopBarProps) 
           <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             {title}
           </h1>
-          <p className="text-sm text-muted-foreground flex items-center space-x-2">
+          <div className="text-sm text-muted-foreground flex items-center space-x-2">
             <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
             <span>{subtitle}</span>
-          </p>
+          </div>
         </div>
         <div className="flex items-center space-x-6">
           {/* Search */}

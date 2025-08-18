@@ -61,6 +61,9 @@ export interface IStorage {
 
   // Log API calls
   logApiCall(call: InsertApiCall): Promise<void>;
+  
+  // Database connection test
+  testConnection(): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -258,6 +261,17 @@ export class DatabaseStorage implements IStorage {
 
   async logApiCall(call: InsertApiCall): Promise<void> {
     await db.insert(apiCalls).values(call);
+  }
+
+  async testConnection(): Promise<boolean> {
+    try {
+      // Test database connection with a simple query
+      await db.select({ test: sql`1` });
+      return true;
+    } catch (error) {
+      console.error('Database connection test failed:', error);
+      return false;
+    }
   }
 }
 
