@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import logoPath from "@assets/image_1755530594258.png";
+import logoPath from "@assets/Untitled design (97)_1755531573825.png";
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: 'fas fa-chart-line' },
@@ -30,12 +30,12 @@ export default function Sidebar() {
       
       {/* Logo & Brand */}
       <div className="p-6 border-b neon-border relative z-10">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 relative">
+        <div className="flex items-center space-x-4">
+          <div className="w-12 h-12 relative">
             <img 
               src={logoPath} 
               alt="SwarmWare Logo" 
-              className="w-full h-full object-contain filter drop-shadow-sm"
+              className="w-full h-full object-contain filter drop-shadow-lg"
             />
           </div>
           <div>
