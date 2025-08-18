@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Sidebar from "@/components/layout/sidebar";
 import TopBar from "@/components/layout/topbar";
@@ -9,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ApiDocs() {
-  const [activeTab, setActiveTab] = useState("overview");
   
   const { data: apiInfo, isLoading } = useQuery({
     queryKey: ['/api/docs'],
@@ -54,7 +52,7 @@ export default function ApiDocs() {
         />
         
         <main className="flex-1 overflow-auto p-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview">Product Overview</TabsTrigger>
               <TabsTrigger value="how-it-works">How It Works</TabsTrigger>
