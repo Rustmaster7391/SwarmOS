@@ -9,7 +9,7 @@ const navigation = [
   { name: 'Templates', href: '/templates', icon: 'fas fa-cubes' },
   { name: 'Security', href: '/security', icon: 'fas fa-shield-alt' },
   { name: 'Monitoring', href: '/monitoring', icon: 'fas fa-eye' },
-  { name: 'API Docs', href: '/api-docs', icon: 'fas fa-code' },
+  { name: 'Docs/API', href: '/api-docs', icon: 'fas fa-code' },
 ];
 
 export default function Sidebar() {
