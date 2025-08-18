@@ -31,37 +31,9 @@ export default function SwarmActivity() {
       }))
     );
 
-    // Update connection lines positions
-    const updateConnections = () => {
-      const svg = document.querySelector('.connection-line')?.parentElement?.parentElement as SVGElement;
-      if (svg) {
-        const lines = svg.querySelectorAll('.connection-line') as NodeListOf<SVGLineElement>;
-        const centerX = svg.clientWidth / 2;
-        const centerY = svg.clientHeight / 2;
-        
-        lines.forEach((line, index) => {
-          const agent = document.querySelector(`[style*="perimeter-orbit-${index}"]`) as HTMLElement;
-          if (agent) {
-            const rect = agent.getBoundingClientRect();
-            const svgRect = svg.getBoundingClientRect();
-            const agentX = rect.left + rect.width / 2 - svgRect.left;
-            const agentY = rect.top + rect.height / 2 - svgRect.top;
-            
-            line.setAttribute('x1', agentX.toString());
-            line.setAttribute('y1', agentY.toString());
-            line.setAttribute('x2', centerX.toString());
-            line.setAttribute('y2', centerY.toString());
-          }
-        });
-      }
-    };
-
-    const connectionInterval = setInterval(updateConnections, 100);
-
     return () => {
       clearInterval(interval);
       clearInterval(particleInterval);
-      clearInterval(connectionInterval);
     };
   }, []);
 
@@ -106,57 +78,38 @@ export default function SwarmActivity() {
             </svg>
           </div>
 
-          {/* Central SwarmWare Hub */}
+          {/* Central SwarmWare Logo/Hub */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div className="relative animate-float-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-spin-slow border-2 border-blue-300/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary via-accent to-primary rounded-full flex items-center justify-center animate-spin-slow">
                 <div className="w-12 h-12 bg-dark-200 rounded-full flex items-center justify-center animate-pulse">
-                  <i className="fas fa-cube text-blue-300 text-xl icon-glow animate-bounce-subtle"></i>
+                  <i className="fas fa-cube text-primary text-xl icon-glow animate-bounce-subtle"></i>
                 </div>
               </div>
               {/* Multiple pulsing rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-purple-400/40 animate-ping" style={{ animationDuration: '2s' }}></div>
-              <div className="absolute -inset-2 rounded-full border border-blue-400/30 animate-ping" style={{ animationDuration: '3s' }}></div>
-              <div className="absolute -inset-4 rounded-full border border-purple-300/20 animate-ping" style={{ animationDuration: '4s' }}></div>
+              <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping" style={{ animationDuration: '2s' }}></div>
+              <div className="absolute -inset-2 rounded-full border border-accent/20 animate-ping" style={{ animationDuration: '3s' }}></div>
+              <div className="absolute -inset-4 rounded-full border border-primary/10 animate-ping" style={{ animationDuration: '4s' }}></div>
             </div>
           </div>
 
-          {/* Triangular Rhombus Icon with Yellow Line */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="absolute top-20 left-0 transform -translate-x-1/2">
-              <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-sm transform rotate-45 flex items-center justify-center animate-pulse">
-                <i className="fas fa-diamond text-dark-200 text-sm -rotate-45"></i>
-              </div>
-            </div>
-            {/* Thick Yellow Line */}
-            <svg className="absolute top-0 left-0 w-32 h-32 transform -translate-x-1/2 -translate-y-1/2">
-              <line
-                x1="16"
-                y1="16"
-                x2="16"
-                y2="100"
-                stroke="#fbbf24"
-                strokeWidth="4"
-                strokeDasharray="8 4"
-                className="animate-pulse"
-                style={{ animation: 'dash-flow 2s linear infinite' }}
-              />
-            </svg>
-          </div>
-
-          {/* Agent Nodes Moving Around Perimeter */}
+          {/* Agent Nodes */}
           {agents.map((agent, index) => (
             <div
               key={agent.id}
-              className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 ${
+              className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-2000 ${
                 activeNodes === index ? 'scale-125 z-10' : 'scale-100'
               }`}
               style={{ 
-                animation: `perimeter-orbit-${index} ${12 + index * 2}s linear infinite`
+                left: `${agent.baseX}%`, 
+                top: `${agent.baseY}%`,
+                animation: `orbit-${index} ${8 + index * 2}s ease-in-out infinite, float ${3 + index * 0.3}s ease-in-out infinite ${index * 0.5}s`
               }}
             >
               <div className="relative">
-                <div className="w-8 h-8 bg-gray-900 rounded-full border-2 border-gray-700 flex items-center justify-center animate-bounce-subtle">
+                <div className={`w-8 h-8 bg-dark-200 rounded-full border-2 ${
+                  activeNodes === index ? 'border-primary animate-pulse' : 'border-gray-500'
+                } flex items-center justify-center transition-all duration-500 animate-bounce-subtle`}>
                   <i className={`fas ${
                     agent.type === 'security' ? 'fa-shield-alt' :
                     agent.type === 'analysis' ? 'fa-chart-line' :
@@ -166,6 +119,23 @@ export default function SwarmActivity() {
                   style={{ animation: agent.type === 'automation' ? 'spin 4s linear infinite' : 'none' }}
                   ></i>
                 </div>
+                
+                {/* Animated data streams to center */}
+                <svg className="absolute top-4 left-4 pointer-events-none w-32 h-32" style={{ zIndex: -1 }}>
+                  <line
+                    x1="0"
+                    y1="0"
+                    x2={`${(50 - agent.baseX) * 6}px`}
+                    y2={`${(50 - agent.baseY) * 5}px`}
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeDasharray="8 4"
+                    className={`${agent.color} opacity-40 animate-pulse`}
+                    style={{ 
+                      animation: `dash-flow 3s linear infinite, pulse 2s ease-in-out infinite ${index * 0.3}s` 
+                    }}
+                  />
+                </svg>
 
                 {/* Constant activity indicators */}
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-400/60 rounded-full animate-ping"></div>
@@ -176,25 +146,24 @@ export default function SwarmActivity() {
             </div>
           ))}
 
-          {/* Dashed Red Lines from Each Agent to Center */}
+          {/* Animated connection lines */}
           <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-            {agents.map((agent, index) => (
-              <g key={`connection-${index}`}>
+            {agents.map((agent, i) => 
+              agents.slice(i + 1).map((otherAgent, j) => (
                 <line
-                  className="connection-line"
-                  data-agent={index}
-                  stroke="#ef4444"
-                  strokeWidth="2"
-                  strokeDasharray="6 4"
-                  style={{ 
-                    animation: `dash-flow 2s linear infinite, connection-pulse-${index} 3s ease-in-out infinite`
-                  }}
+                  key={`${i}-${j}`}
+                  x1={`${agent.baseX}%`}
+                  y1={`${agent.baseY}%`}
+                  x2={`${otherAgent.baseX}%`}
+                  y2={`${otherAgent.baseY}%`}
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeDasharray="2 6"
+                  className={`text-primary/20 ${connections === (i + j) % 8 ? 'animate-pulse text-primary/60' : ''}`}
                 />
-              </g>
-            ))}
+              ))
+            )}
           </svg>
-
-
 
           {/* Enhanced data flow particles */}
           <div className="absolute inset-0">

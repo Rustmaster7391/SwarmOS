@@ -282,84 +282,47 @@
     100% { stroke-dashoffset: 24; }
   }
 
-  /* Perimeter orbit animations for agents around the box */
-  @keyframes perimeter-orbit-0 {
-    0% { left: 50%; top: 10%; }
-    25% { left: 90%; top: 50%; }
-    50% { left: 50%; top: 90%; }
-    75% { left: 10%; top: 50%; }
-    100% { left: 50%; top: 10%; }
+  /* Individual orbit animations for each agent */
+  @keyframes orbit-0 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(8px) translateY(-4px); }
+    50% { transform: translate(-50%, -50%) translateX(0px) translateY(-8px); }
+    75% { transform: translate(-50%, -50%) translateX(-8px) translateY(-4px); }
   }
 
-  @keyframes perimeter-orbit-1 {
-    0% { left: 70%; top: 12%; }
-    25% { left: 88%; top: 70%; }
-    50% { left: 30%; top: 88%; }
-    75% { left: 12%; top: 30%; }
-    100% { left: 70%; top: 12%; }
+  @keyframes orbit-1 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-6px) translateY(6px); }
+    50% { transform: translate(-50%, -50%) translateX(-12px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(-6px) translateY(-6px); }
   }
 
-  @keyframes perimeter-orbit-2 {
-    0% { left: 30%; top: 15%; }
-    25% { left: 85%; top: 30%; }
-    50% { left: 70%; top: 85%; }
-    75% { left: 15%; top: 70%; }
-    100% { left: 30%; top: 15%; }
+  @keyframes orbit-2 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(4px) translateY(8px); }
+    50% { transform: translate(-50%, -50%) translateX(8px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(4px) translateY(-8px); }
   }
 
-  @keyframes perimeter-orbit-3 {
-    0% { left: 88%; top: 25%; }
-    25% { left: 75%; top: 88%; }
-    50% { left: 12%; top: 75%; }
-    75% { left: 25%; top: 12%; }
-    100% { left: 88%; top: 25%; }
+  @keyframes orbit-3 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-10px) translateY(-2px); }
+    50% { transform: translate(-50%, -50%) translateX(0px) translateY(-10px); }
+    75% { transform: translate(-50%, -50%) translateX(10px) translateY(-2px); }
   }
 
-  @keyframes perimeter-orbit-4 {
-    0% { left: 15%; top: 40%; }
-    25% { left: 60%; top: 12%; }
-    50% { left: 85%; top: 60%; }
-    75% { left: 40%; top: 88%; }
-    100% { left: 15%; top: 40%; }
+  @keyframes orbit-4 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(6px) translateY(-8px); }
+    50% { transform: translate(-50%, -50%) translateX(12px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(6px) translateY(8px); }
   }
 
-  @keyframes perimeter-orbit-5 {
-    0% { left: 80%; top: 15%; }
-    25% { left: 85%; top: 80%; }
-    50% { left: 20%; top: 85%; }
-    75% { left: 15%; top: 20%; }
-    100% { left: 80%; top: 15%; }
-  }
-
-  /* Pulse animations for connection lines */
-  @keyframes connection-pulse-0 {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-
-  @keyframes connection-pulse-1 {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.9; }
-  }
-
-  @keyframes connection-pulse-2 {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-
-  @keyframes connection-pulse-3 {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
-
-  @keyframes connection-pulse-4 {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-
-  @keyframes connection-pulse-5 {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.9; }
+  @keyframes orbit-5 {
+    0%, 100% { transform: translate(-50%, -50%) translateX(0px) translateY(0px); }
+    25% { transform: translate(-50%, -50%) translateX(-4px) translateY(10px); }
+    50% { transform: translate(-50%, -50%) translateX(-8px) translateY(0px); }
+    75% { transform: translate(-50%, -50%) translateX(-4px) translateY(-10px); }
   }
 
   /* Drift animations for particles */
