@@ -31,7 +31,7 @@ export default function Sidebar() {
       {/* Logo & Brand */}
       <div className="p-6 border-b neon-border relative z-10">
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 relative">
+          <div className="w-16 h-16 relative">
             <img 
               src={logoPath} 
               alt="SwarmWare Logo" 
