@@ -47,6 +47,15 @@ export default function DefensiveMechanisms() {
       bgColor: "bg-yellow-500/20",
       borderColor: "border-yellow-500/50",
       status: "Compliant"
+    },
+    {
+      title: "Adaptive Learning",
+      description: "Continuous improvement through machine learning algorithms that adapt swarm behavior based on performance metrics and threat intelligence.",
+      icon: "fas fa-brain",
+      color: "text-orange-400",
+      bgColor: "bg-orange-500/20",
+      borderColor: "border-orange-500/50",
+      status: "Learning"
     }
   ];
 
@@ -72,8 +81,9 @@ export default function DefensiveMechanisms() {
               className={`p-4 rounded-lg bg-dark-300 border-2 ${mechanism.borderColor} hover:bg-dark-200 transition-all duration-300 card-glow group`}
             >
               <div className="flex items-start space-x-3 mb-3">
-                <div className={`${mechanism.bgColor} p-2 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`${mechanism.bgColor} p-2 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300 relative`}>
                   <i className={`${mechanism.icon} ${mechanism.color} icon-glow`}></i>
+                  <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${mechanism.bgColor.replace('/20', '')} animate-pulse`}></div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
