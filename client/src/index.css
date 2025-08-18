@@ -237,6 +237,22 @@
     }
   }
 
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-3px) translateX(2px);
+    }
+    66% {
+      transform: translateY(2px) translateX(-1px);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+
   .gradient-border {
     position: relative;
     background: linear-gradient(45deg, hsl(271 91% 65%), hsl(271 91% 75%));

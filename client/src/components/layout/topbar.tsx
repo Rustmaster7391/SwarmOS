@@ -25,18 +25,7 @@ export default function TopBar({ title, subtitle, onCreateSwarm }: TopBarProps) 
           </div>
         </div>
         <div className="flex items-center space-x-6">
-          {/* Search */}
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Neural search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-dark-300/80 border border-primary/20 text-white placeholder-gray-400 pl-10 w-64 focus:border-primary/50 focus:bg-dark-300 transition-all duration-300"
-            />
-            <i className="fas fa-search absolute left-3 top-3 text-accent"></i>
-            <div className="absolute inset-0 rounded-md bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </div>
+
           
           {/* System Status */}
           <div className="flex items-center space-x-2">
