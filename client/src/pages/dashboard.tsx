@@ -45,7 +45,10 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen overflow-hidden dark">
-      <Sidebar />
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
       
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
@@ -54,10 +57,10 @@ export default function Dashboard() {
           onCreateSwarm={() => setIsCreateSwarmModalOpen(true)}
         />
         
-        <main className="flex-1 overflow-auto p-6 data-grid matrix-rain">
+        <main className="flex-1 overflow-auto p-3 sm:p-6 data-grid matrix-rain">
           <StatsCards />
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <SwarmActivity />
             <QuickActions
               onDeployTemplate={() => setIsCreateSwarmModalOpen(true)}
@@ -67,7 +70,7 @@ export default function Dashboard() {
             />
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <ActiveSwarms />
             <SecurityOverview />
           </div>

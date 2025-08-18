@@ -55,19 +55,19 @@ export default function QuickActions({
 
   return (
     <Card className="bg-dark-100 border-gray-700 card-glow">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-white flex items-center">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center">
           <i className="fas fa-bolt mr-2 icon-glow"></i>
           Quick Actions
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {actions.map((action, index) => (
             <Button
               key={index}
               variant="ghost"
-              className="w-full text-left p-4 h-auto bg-dark-300 hover:bg-dark-200 border border-gray-600 group justify-start card-glow hover:card-glow transition-all duration-300"
+              className="w-full text-left p-3 sm:p-4 h-auto bg-dark-300 hover:bg-dark-200 border border-gray-600 group justify-start card-glow hover:card-glow transition-all duration-300"
               onClick={action.onClick}
             >
               <div className="flex items-center space-x-3 w-full">
@@ -75,8 +75,8 @@ export default function QuickActions({
                   <i className={`${action.icon} ${action.iconColor} icon-glow`}></i>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-white truncate">{action.title}</p>
-                  <p className="text-sm text-gray-400 break-words line-clamp-2">{action.description}</p>
+                  <p className="text-sm sm:text-base font-medium text-white truncate">{action.title}</p>
+                  <p className="text-xs sm:text-sm text-gray-400 break-words line-clamp-2">{action.description}</p>
                 </div>
               </div>
             </Button>

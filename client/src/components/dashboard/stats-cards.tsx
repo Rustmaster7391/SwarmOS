@@ -15,11 +15,11 @@ export default function StatsCards() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
         {[...Array(4)].map((_, i) => (
           <Card key={i} className="bg-dark-100 border-gray-700">
-            <CardContent className="p-6">
-              <Skeleton className="h-16 w-full" />
+            <CardContent className="p-3 sm:p-6">
+              <Skeleton className="h-12 sm:h-16 w-full" />
             </CardContent>
           </Card>
         ))}
@@ -67,16 +67,16 @@ export default function StatsCards() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
       {statsConfig.map((stat, index) => (
         <Card key={index} className="cyber-card neon-border hover:shadow-lg hover:shadow-primary/10 transition-all duration-500 group relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <CardContent className="p-6 relative">
+          <CardContent className="p-3 sm:p-6 relative">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400">{stat.title}</p>
-                <p className="text-2xl font-bold text-white">{stat.value}</p>
-                <p className={`text-sm mt-1 flex items-center space-x-1 ${
+              <div className="min-w-0 flex-1">
+                <p className="text-xs sm:text-sm text-gray-400 truncate">{stat.title}</p>
+                <p className="text-lg sm:text-2xl font-bold text-white">{stat.value}</p>
+                <p className={`text-xs sm:text-sm mt-1 flex items-center space-x-1 hidden sm:flex ${
                   stat.trendType === 'positive' ? 'text-success' :
                   stat.trendType === 'warning' ? 'text-warning' :
                   'text-gray-400'
@@ -86,8 +86,8 @@ export default function StatsCards() {
                   <span>{stat.trend}</span>
                 </p>
               </div>
-              <div className={`${stat.iconBg} p-3 rounded-lg gradient-border`}>
-                <i className={`${stat.icon} ${stat.iconColor} text-xl icon-glow`}></i>
+              <div className={`${stat.iconBg} p-2 sm:p-3 rounded-lg gradient-border flex-shrink-0`}>
+                <i className={`${stat.icon} ${stat.iconColor} text-sm sm:text-xl icon-glow`}></i>
               </div>
             </div>
           </CardContent>

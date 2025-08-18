@@ -47,25 +47,27 @@ export default function SwarmActivity() {
   ];
 
   return (
-    <Card className="lg:col-span-2 bg-dark-100 border-gray-700 card-glow overflow-hidden">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-white flex items-center">
+    <Card className="xl:col-span-2 bg-dark-100 border-gray-700 card-glow overflow-hidden">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center">
           <i className="fas fa-project-diagram mr-2 text-primary icon-glow"></i>
-          Swarm Network Activity
-          <div className="ml-auto flex items-center space-x-4 text-sm">
+          <span className="hidden sm:inline">Swarm Network Activity</span>
+          <span className="sm:hidden">Network</span>
+          <div className="ml-auto flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm">
             <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-green-400">{agents.length} Nodes</span>
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-green-400 hidden sm:inline">{agents.length} Nodes</span>
+              <span className="text-green-400 sm:hidden">{agents.length}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full animate-pulse"></div>
               <span className="text-blue-400">Live</span>
             </div>
           </div>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="relative h-80 bg-gradient-to-br from-dark-300/50 via-dark-300/80 to-dark-300 rounded-lg border border-primary/20 overflow-hidden">
+        <div className="relative h-48 sm:h-64 lg:h-80 bg-gradient-to-br from-dark-300/50 via-dark-300/80 to-dark-300 rounded-lg border border-primary/20 overflow-hidden">
           {/* Animated grid background */}
           <div className="absolute inset-0 opacity-20">
             <svg width="100%" height="100%" className="animate-pulse">

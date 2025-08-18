@@ -61,24 +61,26 @@ export default function DefensiveMechanisms() {
 
   return (
     <Card className="bg-dark-100 border-gray-700 card-glow">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold text-white flex items-center">
-          <i className="fas fa-shield-alt mr-3 text-primary icon-glow"></i>
-          SwarmWare Defensive Mechanisms
-          <div className="ml-auto">
-            <Badge className="bg-green-500/20 text-green-300 border-green-500/50">
-              <i className="fas fa-check-circle mr-1"></i>
-              All Systems Operational
-            </Badge>
+      <CardHeader className="pb-3">
+        <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center flex-wrap gap-2">
+          <div className="flex items-center">
+            <i className="fas fa-shield-alt mr-2 sm:mr-3 text-primary icon-glow"></i>
+            <span className="hidden sm:inline">SwarmWare Defensive Mechanisms</span>
+            <span className="sm:hidden">Defensive Systems</span>
           </div>
+          <Badge className="bg-green-500/20 text-green-300 border-green-500/50 text-xs">
+            <i className="fas fa-check-circle mr-1"></i>
+            <span className="hidden sm:inline">All Systems Operational</span>
+            <span className="sm:hidden">Online</span>
+          </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {mechanisms.map((mechanism, index) => (
             <div
               key={index}
-              className={`p-4 rounded-lg bg-dark-300 border-2 ${mechanism.borderColor} hover:bg-dark-200 transition-all duration-300 card-glow group`}
+              className={`p-3 sm:p-4 rounded-lg bg-dark-300 border-2 ${mechanism.borderColor} hover:bg-dark-200 transition-all duration-300 card-glow group`}
             >
               <div className="flex items-start space-x-3 mb-3">
                 <div className={`${mechanism.bgColor} p-2 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300 relative`}>
@@ -107,13 +109,13 @@ export default function DefensiveMechanisms() {
                   ></div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-between mb-1 flex-wrap gap-1">
                     <h4 className="font-semibold text-white text-sm">{mechanism.title}</h4>
                     <Badge className={`text-xs ${mechanism.bgColor} ${mechanism.color} border-0`}>
                       {mechanism.status}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                     {mechanism.description}
                   </p>
                 </div>
@@ -135,19 +137,20 @@ export default function DefensiveMechanisms() {
         </div>
         
         {/* Overall system status */}
-        <div className="mt-6 p-4 bg-dark-300 rounded-lg border border-green-500/30">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-green-500/20 p-2 rounded-lg">
+        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-dark-300 rounded-lg border border-green-500/30">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center space-x-3 min-w-0 flex-1">
+              <div className="bg-green-500/20 p-2 rounded-lg flex-shrink-0">
                 <i className="fas fa-check-circle text-green-400 icon-glow"></i>
               </div>
-              <div>
-                <h5 className="font-medium text-white">System Integrity Status</h5>
-                <p className="text-sm text-gray-400">All defensive mechanisms are operational and monitoring your swarms</p>
+              <div className="min-w-0">
+                <h5 className="text-sm sm:text-base font-medium text-white">System Integrity Status</h5>
+                <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">All defensive mechanisms are operational and monitoring your swarms</p>
+                <p className="text-xs text-gray-400 sm:hidden">All systems operational</p>
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-lg font-bold text-green-400">100%</div>
+            <div className="text-right flex-shrink-0">
+              <div className="text-base sm:text-lg font-bold text-green-400">100%</div>
               <div className="text-xs text-gray-400">Protection Level</div>
             </div>
           </div>
