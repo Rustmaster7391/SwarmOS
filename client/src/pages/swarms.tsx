@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import Sidebar from "@/components/layout/sidebar";
 import TopBar from "@/components/layout/topbar";
 import CreateSwarmModal from "@/components/modals/create-swarm-modal";
+import AgentSkillsModal from "@/components/modals/agent-skills-modal";
+import AgentTasksModal from "@/components/modals/agent-tasks-modal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +13,9 @@ import type { Swarm } from "@shared/schema";
 
 export default function Swarms() {
   const [isCreateSwarmModalOpen, setIsCreateSwarmModalOpen] = useState(false);
+  const [isSkillsModalOpen, setIsSkillsModalOpen] = useState(false);
+  const [isTasksModalOpen, setIsTasksModalOpen] = useState(false);
+  const [selectedSwarm, setSelectedSwarm] = useState<Swarm | null>(null);
 
   const { data: swarms, isLoading } = useQuery<Swarm[]>({
     queryKey: ['/api/swarms'],
@@ -41,7 +46,10 @@ export default function Swarms() {
 
   return (
     <div className="flex h-screen overflow-hidden dark">
-      <Sidebar />
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
       
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
@@ -50,44 +58,44 @@ export default function Swarms() {
           onCreateSwarm={() => setIsCreateSwarmModalOpen(true)}
         />
         
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-3 sm:p-6">
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (
                 <Card key={i} className="bg-dark-100 border-gray-700">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <Skeleton className="h-32 w-full" />
                   </CardContent>
                 </Card>
               ))}
             </div>
           ) : swarms && swarms.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {swarms.map((swarm) => (
                 <Card key={swarm.id} className="bg-dark-100 border-gray-700 hover:border-primary/50 transition-colors">
-                  <CardHeader>
+                  <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold text-white">{swarm.name}</CardTitle>
-                      <Badge variant={getStatusVariant(swarm.status || 'inactive')} className="capitalize">
+                      <CardTitle className="text-base sm:text-lg font-semibold text-white truncate mr-2">{swarm.name}</CardTitle>
+                      <Badge variant={getStatusVariant(swarm.status || 'inactive')} className="capitalize text-xs flex-shrink-0">
                         {swarm.status || 'inactive'}
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <p className="text-sm text-gray-400">
+                    <div className="space-y-3 sm:space-y-4">
+                      <p className="text-xs sm:text-sm text-gray-400 line-clamp-2">
                         {swarm.description || 'No description available'}
                       </p>
                       
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 min-w-0 flex-1">
                           <i className={getStatusIcon(swarm.status || 'inactive')}></i>
-                          <span className="text-sm text-gray-300">
+                          <span className="text-xs sm:text-sm text-gray-300 truncate">
                             {swarm.agentCount || 0} / {swarm.maxAgents || 100} agents
                           </span>
                         </div>
                         {swarm.autoScaling && (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs flex-shrink-0">
                             Auto-scaling
                           </Badge>
                         )}
@@ -98,13 +106,29 @@ export default function Swarms() {
                       </div>
                       
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline" className="flex-1">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1 hover:bg-primary/20 hover:border-primary/50 transition-colors"
+                          onClick={() => {
+                            setSelectedSwarm(swarm);
+                            setIsSkillsModalOpen(true);
+                          }}
+                        >
                           <i className="fas fa-eye mr-2"></i>
                           View
                         </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <i className="fas fa-edit mr-2"></i>
-                          Edit
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1 hover:bg-accent/20 hover:border-accent/50 transition-colors"
+                          onClick={() => {
+                            setSelectedSwarm(swarm);
+                            setIsTasksModalOpen(true);
+                          }}
+                        >
+                          <i className="fas fa-tasks mr-2"></i>
+                          Task List
                         </Button>
                       </div>
                     </div>
@@ -136,6 +160,18 @@ export default function Swarms() {
       <CreateSwarmModal
         open={isCreateSwarmModalOpen}
         onOpenChange={setIsCreateSwarmModalOpen}
+      />
+      
+      <AgentSkillsModal
+        open={isSkillsModalOpen}
+        onOpenChange={setIsSkillsModalOpen}
+        swarm={selectedSwarm}
+      />
+      
+      <AgentTasksModal
+        open={isTasksModalOpen}
+        onOpenChange={setIsTasksModalOpen}
+        swarm={selectedSwarm}
       />
     </div>
   );
