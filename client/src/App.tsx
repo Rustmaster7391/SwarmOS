@@ -9,6 +9,7 @@ import Swarms from "./pages/swarms";
 import Agents from "./pages/agents";
 import Templates from "./pages/templates";
 import Security from "./pages/security";
+import Technology from "./pages/technology";
 import Monitoring from "./pages/monitoring";
 import ApiDocs from "./pages/api-docs";
 import AuditLogs from "./pages/audit-logs";
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/agents" component={Agents} />
       <Route path="/templates" component={Templates} />
       <Route path="/security" component={Security} />
+      <Route path="/technology" component={Technology} />
       <Route path="/monitoring" component={Monitoring} />
       <Route path="/api-docs" component={ApiDocs} />
       <Route path="/audit-logs" component={AuditLogs} />

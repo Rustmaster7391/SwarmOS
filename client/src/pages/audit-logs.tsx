@@ -230,7 +230,7 @@ export default function AuditLogs() {
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
           title="Audit Logs"
-          subtitle="Security audit results for SwarmWare protected systems"
+          subtitle="Comprehensive security audit results with AI-driven threat analysis"
         />
         
         <main className="flex-1 overflow-auto p-6">

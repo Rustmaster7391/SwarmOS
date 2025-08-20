@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Agents', href: '/agents', icon: 'fas fa-robot' },
   { name: 'Templates', href: '/templates', icon: 'fas fa-cubes' },
   { name: 'Security', href: '/security', icon: 'fas fa-shield-alt' },
+  { name: 'Technology', href: '/technology', icon: 'fas fa-dna' },
   { name: 'Monitoring', href: '/monitoring', icon: 'fas fa-eye' },
   { name: 'Docs/API', href: '/api-docs', icon: 'fas fa-code' },
 ];

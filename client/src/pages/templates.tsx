@@ -44,10 +44,40 @@ export default function Templates() {
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
           title="Templates"
-          subtitle="Pre-built swarm configurations for common use cases"
+          subtitle="Next-gen swarm blueprints with emergent intelligence patterns"
         />
         
         <main className="flex-1 overflow-auto p-6">
+          {/* Futuristic Applications Banner */}
+          <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30 mb-8">
+            <CardContent className="p-6">
+              <div className="flex items-start space-x-4">
+                <div className="bg-accent/20 p-4 rounded-lg flex-shrink-0">
+                  <i className="fas fa-rocket text-accent text-2xl"></i>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-3">Transform Industries with Next-Gen Swarms</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                    From autonomous R&D simulations that accelerate scientific breakthroughs to intelligent supply chain optimizers that predict and mitigate global disruptions using predictive analytics and real-time data fusion. Envision AI agents forming adaptive networks, handing off tasks fluidly like neurons in a brain.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div className="bg-dark-200 rounded p-3">
+                      <i className="fas fa-brain text-primary mr-2"></i>
+                      <span className="text-gray-300">Multi-modal cognition with human-level reasoning</span>
+                    </div>
+                    <div className="bg-dark-200 rounded p-3">
+                      <i className="fas fa-infinity text-accent mr-2"></i>
+                      <span className="text-gray-300">Self-improving algorithms with continuous evolution</span>
+                    </div>
+                    <div className="bg-dark-200 rounded p-3">
+                      <i className="fas fa-globe text-success mr-2"></i>
+                      <span className="text-gray-300">Hyperscale deployment across distributed environments</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (

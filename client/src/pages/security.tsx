@@ -44,35 +44,68 @@ export default function Security() {
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
           title="Security"
-          subtitle="Swarm Shield security monitoring and threat detection"
+          subtitle="Bio-mimetic security orchestration with emergent threat intelligence"
         />
         
         <main className="flex-1 overflow-auto p-6">
+          {/* Bio-Inspired Security Philosophy */}
+          <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 mb-8">
+            <CardContent className="p-6">
+              <div className="flex items-start space-x-4">
+                <div className="bg-primary/20 p-4 rounded-lg flex-shrink-0">
+                  <i className="fas fa-dna text-primary text-2xl"></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3">Emergent Security Intelligence</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                    Inspired by the emergent behaviors of ant colonies and bee hives, SwarmWare harnesses collective intelligence to enable AI agents to self-organize, adapt in real-time, and solve intricate security problems through decentralized decision-making—ushering in a new era of bio-mimetic security orchestration.
+                  </p>
+                  <div className="flex items-center space-x-6 text-sm">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                      <span className="text-success">Self-Organizing Defense</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                      <span className="text-primary">Adaptive Threat Response</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                      <span className="text-accent">Decentralized Intelligence</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Security Status Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-dark-100 border-gray-700">
+            <Card className="bg-dark-100 border-gray-700 hover:border-success/50 transition-colors">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-400">Swarm Shield</p>
-                    <p className="text-2xl font-bold text-success">Active</p>
+                    <p className="text-sm text-gray-400">Neural Swarm Shield</p>
+                    <p className="text-2xl font-bold text-success">Hyperscale Active</p>
+                    <p className="text-xs text-success mt-1">Sub-millisecond Response</p>
                   </div>
                   <div className="bg-success/20 p-3 rounded-lg">
-                    <i className="fas fa-shield-alt text-success text-xl"></i>
+                    <i className="fas fa-network-wired text-success text-xl"></i>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-dark-100 border-gray-700">
+            <Card className="bg-dark-100 border-gray-700 hover:border-primary/50 transition-colors">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-400">Encrypted Channels</p>
+                    <p className="text-sm text-gray-400">Quantum-Grade Channels</p>
                     <p className="text-2xl font-bold text-white">847/847</p>
+                    <p className="text-xs text-primary mt-1">Blockchain Verified</p>
                   </div>
                   <div className="bg-primary/20 p-3 rounded-lg">
-                    <i className="fas fa-lock text-primary text-xl"></i>
+                    <i className="fas fa-atom text-primary text-xl"></i>
                   </div>
                 </div>
               </CardContent>
