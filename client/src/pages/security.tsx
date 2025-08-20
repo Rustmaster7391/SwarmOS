@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/layout/sidebar";
 import TopBar from "@/components/layout/topbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { SecurityAlert } from "@shared/schema";
 
 export default function Security() {
+  const queryClient = useQueryClient();
+  const [alertsToResolve, setAlertsToResolve] = useState<Set<string>>(new Set());
+  const [localAlerts, setLocalAlerts] = useState<SecurityAlert[]>([]);
+
   const { data: alerts, isLoading } = useQuery<SecurityAlert[]>({
     queryKey: ['/api/security/alerts'],
     queryFn: async () => {
@@ -16,6 +21,156 @@ export default function Security() {
       return response.json();
     },
   });
+
+  // Initialize and manage local alerts state
+  useEffect(() => {
+    if (alerts && alerts.length > 0) {
+      setLocalAlerts(alerts);
+    } else {
+      // Add some initial alerts for demonstration
+      const initialAlerts: SecurityAlert[] = [
+        {
+          id: "initial-1",
+          title: "Agent Initialization Anomaly",
+          description: "Unusual agent startup patterns detected in swarm cluster 03",
+          severity: "high",
+          swarmId: "demo-swarm",
+          agentId: null,
+          resolved: false,
+          createdAt: new Date(Date.now() - 300000), // 5 minutes ago
+          resolvedAt: null
+        },
+        {
+          id: "initial-2",
+          title: "Memory Threshold Exceeded",
+          description: "Agent resource consumption above normal parameters",
+          severity: "medium",
+          swarmId: "demo-swarm",
+          agentId: null,
+          resolved: false,
+          createdAt: new Date(Date.now() - 120000), // 2 minutes ago
+          resolvedAt: null
+        },
+        {
+          id: "initial-3",
+          title: "Communication Protocol Violation",
+          description: "Unauthorized inter-agent communication attempt blocked",
+          severity: "critical",
+          swarmId: "demo-swarm",
+          agentId: null,
+          resolved: false,
+          createdAt: new Date(),
+          resolvedAt: null
+        }
+      ];
+      setLocalAlerts(initialAlerts);
+    }
+  }, [alerts]);
+
+  // Dynamic alert generation and resolution system
+  useEffect(() => {
+    const alertTemplates = [
+      {
+        title: "Agent Initialization Anomaly",
+        description: "Unusual agent startup patterns detected in swarm cluster 03",
+        severity: "high" as const
+      },
+      {
+        title: "Memory Threshold Exceeded",
+        description: "Agent resource consumption above normal parameters",
+        severity: "medium" as const
+      },
+      {
+        title: "Communication Protocol Violation",
+        description: "Unauthorized inter-agent communication attempt blocked",
+        severity: "critical" as const
+      },
+      {
+        title: "Neural Network Drift",
+        description: "Agent learning parameters deviating from baseline",
+        severity: "medium" as const
+      },
+      {
+        title: "Security Token Renewal",
+        description: "Automated security credential refresh in progress",
+        severity: "low" as const
+      },
+      {
+        title: "Swarm Consensus Timeout",
+        description: "Decision making delay detected in agent coordination",
+        severity: "high" as const
+      },
+      {
+        title: "Behavioral Pattern Anomaly",
+        description: "Agent exhibiting unexpected task execution patterns",
+        severity: "medium" as const
+      }
+    ];
+
+    // Function to generate new alert
+    const generateAlert = () => {
+      if (localAlerts.length >= 7) return; // Max 7 alerts
+
+      const template = alertTemplates[Math.floor(Math.random() * alertTemplates.length)];
+      const newAlert: SecurityAlert = {
+        id: `alert-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        title: template.title,
+        description: template.description,
+        severity: template.severity,
+        swarmId: "demo-swarm",
+        agentId: null,
+        resolved: false,
+        createdAt: new Date(),
+        resolvedAt: null
+      };
+
+      setLocalAlerts(prev => [...prev, newAlert]);
+      
+      // Update dashboard stats
+      queryClient.invalidateQueries({ queryKey: ['/api/dashboard/stats'] });
+    };
+
+    // Function to resolve an alert
+    const resolveRandomAlert = () => {
+      const unresolvedAlerts = localAlerts.filter(alert => !Array.from(alertsToResolve).includes(alert.id));
+      if (unresolvedAlerts.length === 0) return;
+
+      const alertToResolve = unresolvedAlerts[Math.floor(Math.random() * unresolvedAlerts.length)];
+      
+      // Mark alert as resolving (button turns green)
+      setAlertsToResolve(prev => new Set([...prev, alertToResolve.id]));
+
+      // Remove alert after 2 minutes (15 seconds for demo)
+      setTimeout(() => {
+        setLocalAlerts(prev => prev.filter(alert => alert.id !== alertToResolve.id));
+        setAlertsToResolve(prev => {
+          const updated = new Set(prev);
+          updated.delete(alertToResolve.id);
+          return updated;
+        });
+        
+        // Update dashboard stats
+        queryClient.invalidateQueries({ queryKey: ['/api/dashboard/stats'] });
+
+        // Generate new alert 2 minutes after completion (10 seconds for demo)
+        setTimeout(generateAlert, 10 * 1000);
+      }, 15 * 1000);
+    };
+
+    // Set up intervals - using shorter times for demo (30 seconds to 2 minutes instead of 5-20 minutes)
+    const resolveInterval = setInterval(() => {
+      resolveRandomAlert();
+    }, Math.random() * (2 - 0.5) * 60 * 1000 + 30 * 1000); // 30 seconds to 2 minutes for demo
+
+    // Initial random alert generation
+    const initialDelay = Math.random() * 30000 + 10000; // 10-40 seconds
+    const initialTimer = setTimeout(generateAlert, initialDelay);
+
+    return () => {
+      clearInterval(resolveInterval);
+      clearTimeout(initialTimer);
+    };
+  }, [localAlerts, alertsToResolve, queryClient]);
 
   const getSeverityVariant = (severity: string) => {
     switch (severity) {
@@ -116,7 +271,7 @@ export default function Security() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-400">Active Alerts</p>
-                    <p className="text-2xl font-bold text-warning">{alerts?.length || 0}</p>
+                    <p className="text-2xl font-bold text-warning">{localAlerts.length}</p>
                   </div>
                   <div className="bg-warning/20 p-3 rounded-lg">
                     <i className="fas fa-exclamation-triangle text-warning text-xl"></i>
@@ -138,9 +293,9 @@ export default function Security() {
                     <Skeleton key={i} className="h-16 w-full" />
                   ))}
                 </div>
-              ) : alerts && alerts.length > 0 ? (
-                <div className="space-y-4">
-                  {alerts.map((alert) => (
+              ) : localAlerts && localAlerts.length > 0 ? (
+                <div className="max-h-96 overflow-y-auto space-y-4 pr-2">
+                  {localAlerts.map((alert) => (
                     <div key={alert.id} className="p-4 bg-dark-300 rounded-lg border border-gray-600">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-3">
@@ -158,9 +313,21 @@ export default function Security() {
                         {alert.description}
                       </p>
                       <div className="flex justify-end">
-                        <Button size="sm" variant="outline">
-                          <i className="fas fa-check mr-2"></i>
-                          Resolve
+                        <Button 
+                          size="sm" 
+                          className={`transition-none ${
+                            alertsToResolve.has(alert.id) 
+                              ? "bg-success hover:bg-success text-white border-success" 
+                              : "bg-warning hover:bg-warning text-dark-400 border-warning"
+                          }`}
+                          disabled={alertsToResolve.has(alert.id)}
+                        >
+                          <i className={`${
+                            alertsToResolve.has(alert.id) 
+                              ? "fas fa-check" 
+                              : "fas fa-exclamation-triangle"
+                          } mr-2`}></i>
+                          {alertsToResolve.has(alert.id) ? "Resolving..." : "Resolve"}
                         </Button>
                       </div>
                     </div>
