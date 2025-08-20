@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import DropdownNav from "@/components/layout/dropdown-nav";
-import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -205,8 +204,7 @@ export default function Security() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
-          <FloatingLogo />
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           {/* Bio-Inspired Security Philosophy */}
           <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 mb-6 sm:mb-8">
             <CardContent className="p-4 sm:p-6">

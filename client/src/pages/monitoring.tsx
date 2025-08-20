@@ -1,5 +1,4 @@
 import DropdownNav from "@/components/layout/dropdown-nav";
-import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Monitoring() {
@@ -16,8 +15,7 @@ export default function Monitoring() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
-          <FloatingLogo />
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           <Card className="bg-dark-100 border-gray-700">
             <CardHeader>
               <CardTitle className="text-white">Real-time Monitoring</CardTitle>

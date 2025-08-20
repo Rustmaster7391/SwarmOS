@@ -17,6 +17,7 @@ const navItems: NavItem[] = [
   { path: '/monitoring', label: 'Monitoring', icon: 'fas fa-chart-line' },
   { path: '/security', label: 'Security', icon: 'fas fa-shield-alt' },
   { path: '/api-docs', label: 'API Docs', icon: 'fas fa-book' },
+  { path: '/technology', label: 'Technology', icon: 'fas fa-cogs' },
 ];
 
 export default function DropdownNav() {

@@ -1,5 +1,4 @@
 import DropdownNav from "@/components/layout/dropdown-nav";
-import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -18,8 +17,7 @@ export default function Technology() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
-          <FloatingLogo />
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           {/* Hero Section - Swarm Intelligence */}
           <Card className="bg-gradient-to-br from-primary/20 via-dark-200 to-accent/20 border-primary/50 mb-8">
             <CardContent className="p-8">
