@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Sidebar from "@/components/layout/sidebar";
-import TopBar from "@/components/layout/topbar";
+import DropdownNav from "@/components/layout/dropdown-nav";
 import CreateSwarmModal from "@/components/modals/create-swarm-modal";
 import AgentSkillsModal from "@/components/modals/agent-skills-modal";
 import AgentTasksModal from "@/components/modals/agent-tasks-modal";
@@ -45,20 +44,28 @@ export default function Swarms() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden dark">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <div className="min-h-screen dark bg-dark-200">
+      <DropdownNav />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          title="Swarms"
-          subtitle="Manage your AI agent swarms"
-          onCreateSwarm={() => setIsCreateSwarmModalOpen(true)}
-        />
+      <div className="flex flex-col">
+        {/* Page Header */}
+        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-white">Active Swarms</h1>
+              <p className="text-gray-400 text-sm sm:text-base mt-2">Monitor and manage your deployed AI agent networks</p>
+            </div>
+            <Button 
+              onClick={() => setIsCreateSwarmModalOpen(true)}
+              className="bg-primary hover:bg-blue-700"
+            >
+              <i className="fas fa-plus mr-2"></i>
+              Deploy Swarm
+            </Button>
+          </div>
+        </div>
         
-        <main className="flex-1 overflow-auto p-3 sm:p-6">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (

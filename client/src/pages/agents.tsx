@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Sidebar from "@/components/layout/sidebar";
-import TopBar from "@/components/layout/topbar";
+import DropdownNav from "@/components/layout/dropdown-nav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -238,16 +237,19 @@ export default function Agents() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden dark">
-      <Sidebar />
+    <div className="min-h-screen dark bg-dark-200">
+      <DropdownNav />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          title="Agent Communications"
-          subtitle="Live chatroom for deployed AI agents using SLM"
-        />
+      <div className="flex flex-col">
+        {/* Page Header */}
+        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Agent Communications</h1>
+            <p className="text-gray-400 text-sm sm:text-base mt-2">Live chatroom for deployed AI agents using SLM</p>
+          </div>
+        </div>
         
-        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-3 sm:p-6 gap-4 sm:gap-6">
+        <main className="flex-1 flex flex-col lg:flex-row px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full gap-4 sm:gap-6">
           {/* Online Agents Panel */}
           <Card className="w-full lg:w-80 bg-dark-100 border-gray-700 flex flex-col max-h-64 lg:max-h-full">
             <CardHeader className="pb-3">
@@ -349,8 +351,7 @@ export default function Agents() {
                 <Button
                   type="submit"
                   disabled={!newMessage.trim() || !selectedAgent}
-                  className="h-10 sm:h-9 touch-target"
-                  className="bg-primary hover:bg-primary/80"
+                  className="h-10 sm:h-9 touch-target bg-primary hover:bg-primary/80"
                 >
                   <i className="fas fa-paper-plane"></i>
                 </Button>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Sidebar from "@/components/layout/sidebar";
+import DropdownNav from "@/components/layout/dropdown-nav";
 import TopBar from "@/components/layout/topbar";
 import StatsCards from "@/components/dashboard/stats-cards";
 import SwarmActivity from "@/components/dashboard/swarm-activity";
@@ -44,19 +44,19 @@ export default function Dashboard() {
   }, [lastMessage, queryClient]);
 
   return (
-    <div className="flex h-screen overflow-hidden dark">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <div className="min-h-screen dark bg-dark-200">
+      <DropdownNav />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          title="Dashboard"
-          subtitle="Monitor and manage your AI agent swarms"
-        />
+      <div className="flex flex-col">
+        {/* Page Header */}
+        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Neural Dashboard</h1>
+            <p className="text-gray-400 text-sm sm:text-base mt-2">Swarm intelligence orchestration with quantum-grade security protocols</p>
+          </div>
+        </div>
         
-        <main className="flex-1 overflow-auto p-3 sm:p-6 data-grid matrix-rain">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           <StatsCards />
           
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Sidebar from "@/components/layout/sidebar";
-import TopBar from "@/components/layout/topbar";
+import DropdownNav from "@/components/layout/dropdown-nav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -42,17 +41,19 @@ export default function ApiDocs() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden dark">
-      <Sidebar />
+    <div className="min-h-screen dark bg-dark-200">
+      <DropdownNav />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          title="SwarmWare Documentation"
-          subtitle="Complete guide to AI agent swarm orchestration"
-        />
+      <div className="flex flex-col">
+        {/* Page Header */}
+        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">SwarmWare Documentation</h1>
+            <p className="text-gray-400 text-sm sm:text-base mt-2">Complete guide to AI agent swarm orchestration</p>
+          </div>
+        </div>
         
-        <main className="flex-1 overflow-auto p-6">
-          <div className="max-w-6xl mx-auto">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
             <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview">Product Overview</TabsTrigger>
@@ -482,7 +483,6 @@ export default function ApiDocs() {
               </Card>
             </TabsContent>
           </Tabs>
-          </div>
         </main>
       </div>
     </div>
