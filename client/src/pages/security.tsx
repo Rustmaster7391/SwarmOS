@@ -202,10 +202,10 @@ export default function Security() {
           subtitle="Bio-mimetic security orchestration with emergent threat intelligence"
         />
         
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-3 sm:p-6">
           {/* Bio-Inspired Security Philosophy */}
-          <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 mb-8">
-            <CardContent className="p-6">
+          <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 mb-6 sm:mb-8">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-start space-x-4">
                 <div className="bg-primary/20 p-4 rounded-lg flex-shrink-0">
                   <i className="fas fa-dna text-primary text-2xl"></i>
@@ -235,9 +235,9 @@ export default function Security() {
           </Card>
 
           {/* Security Status Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <Card className="bg-dark-100 border-gray-700 hover:border-success/50 transition-colors">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-400">Neural Swarm Shield</p>

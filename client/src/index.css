@@ -118,6 +118,58 @@
     color: hsl(var(--error));
   }
 
+  /* Mobile-responsive text utilities */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Touch-friendly button sizes */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Mobile-responsive containers */
+  .mobile-container {
+    @apply px-3 sm:px-6 lg:px-8;
+  }
+
+  .mobile-spacing {
+    @apply space-y-4 sm:space-y-6;
+  }
+
+  /* Responsive text sizing */
+  .mobile-heading-lg {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .mobile-heading-md {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .mobile-heading-sm {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  .mobile-text {
+    @apply text-sm sm:text-base;
+  }
+
+  /* Mobile-first dialog overrides */
+  [data-radix-dialog-content] {
+    @apply w-[95vw] sm:w-auto !important;
+  }
+
   .bg-success {
     background-color: hsl(var(--success));
   }

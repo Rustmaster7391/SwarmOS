@@ -247,9 +247,9 @@ export default function Agents() {
           subtitle="Live chatroom for deployed AI agents using SLM"
         />
         
-        <main className="flex-1 flex overflow-hidden p-6 gap-6">
+        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-3 sm:p-6 gap-4 sm:gap-6">
           {/* Online Agents Panel */}
-          <Card className="w-80 bg-dark-100 border-gray-700 flex flex-col">
+          <Card className="w-full lg:w-80 bg-dark-100 border-gray-700 flex flex-col max-h-64 lg:max-h-full">
             <CardHeader className="pb-3">
               <CardTitle className="text-white flex items-center">
                 <i className="fas fa-users mr-2 text-accent"></i>
@@ -258,7 +258,12 @@ export default function Agents() {
             </CardHeader>
             <CardContent className="flex-1 overflow-hidden">
               <div className="h-full overflow-y-auto pr-2 space-y-2">
-                  {onlineAgents.map((agent) => (
+                  {onlineAgents.length === 0 ? (
+                    <div className="text-center py-4">
+                      <p className="text-gray-400 text-sm">No agents online</p>
+                    </div>
+                  ) : (
+                    onlineAgents.map((agent) => (
                     <div
                       key={agent.id}
                       className={`p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
@@ -268,23 +273,24 @@ export default function Agents() {
                       }`}
                       onClick={() => setSelectedAgent(agent.id)}
                     >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-white font-medium text-sm">{agent.name}</p>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white font-medium text-sm truncate">{agent.name}</p>
                           <Badge className={`text-xs mt-1 ${getAgentTypeColor(agent.type)}`}>
                             {agent.type.replace('_', ' ')}
                           </Badge>
                         </div>
-                        <div className="text-right">
+                        <div className="flex items-center space-x-2 sm:flex-col sm:space-x-0 sm:space-y-1 sm:items-end">
                           <div className={`w-2 h-2 rounded-full ${
                             agent.status === 'active' ? 'bg-green-400' :
                             agent.status === 'working' ? 'bg-yellow-400' : 'bg-gray-400'
                           } animate-pulse`}></div>
-                          <p className="text-xs text-gray-400 mt-1">{agent.status}</p>
+                          <p className="text-xs text-gray-400">{agent.status}</p>
                         </div>
                       </div>
                     </div>
-                  ))}
+                    ))
+                  )}
               </div>
             </CardContent>
           </Card>
@@ -330,19 +336,20 @@ export default function Agents() {
               </div>
 
               {/* Message Input */}
-              <form onSubmit={handleSendMessage} className="flex space-x-2">
+              <form onSubmit={handleSendMessage} className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                 <div className="flex-1">
                   <Input
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder={selectedAgent ? `Message as ${onlineAgents.find(a => a.id === selectedAgent)?.name}...` : "Select an agent to communicate..."}
                     disabled={!selectedAgent}
-                    className="bg-dark-300 border-gray-600 text-white placeholder-gray-400"
+                    className="bg-dark-300 border-gray-600 text-white placeholder-gray-400 h-10 sm:h-9 text-sm"
                   />
                 </div>
                 <Button
                   type="submit"
                   disabled={!newMessage.trim() || !selectedAgent}
+                  className="h-10 sm:h-9 touch-target"
                   className="bg-primary hover:bg-primary/80"
                 >
                   <i className="fas fa-paper-plane"></i>
