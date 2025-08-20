@@ -52,7 +52,8 @@ export default function ApiDocs() {
         />
         
         <main className="flex-1 overflow-auto p-6">
-          <Tabs defaultValue="overview" className="w-full">
+          <div className="max-w-6xl mx-auto">
+            <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview">Product Overview</TabsTrigger>
               <TabsTrigger value="how-it-works">How It Works</TabsTrigger>
@@ -481,6 +482,7 @@ export default function ApiDocs() {
               </Card>
             </TabsContent>
           </Tabs>
+          </div>
         </main>
       </div>
     </div>
