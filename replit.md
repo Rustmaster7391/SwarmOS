@@ -8,6 +8,15 @@ SwarmWare is a comprehensive AI agent orchestration platform that enables users 
 
 Preferred communication style: Simple, everyday language.
 
+**Protected Pages Policy**: The following core pages should NOT be modified unless explicitly requested by the user:
+- Dashboard (`client/src/pages/dashboard.tsx`)
+- Swarms (`client/src/pages/swarms.tsx`) 
+- Agents (`client/src/pages/agents.tsx`)
+- Monitoring (`client/src/pages/monitoring.tsx`)
+- Docs/API (`client/src/pages/api-docs.tsx`)
+
+These pages represent stable, completed functionality that the user wants preserved.
+
 ## System Architecture
 
 ### Frontend Architecture
