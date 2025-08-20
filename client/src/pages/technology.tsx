@@ -1,24 +1,23 @@
-import Sidebar from "@/components/layout/sidebar";
-import TopBar from "@/components/layout/topbar";
+import DropdownNav from "@/components/layout/dropdown-nav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
 export default function Technology() {
   return (
-    <div className="flex h-screen overflow-hidden dark">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <div className="min-h-screen dark bg-dark-200">
+      <DropdownNav />
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <TopBar
-          title="Technology"
-          subtitle="Advanced AI orchestration with bio-mimetic intelligence"
-        />
+      <div className="flex flex-col">
+        {/* Page Header */}
+        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Technology</h1>
+            <p className="text-gray-400 text-sm sm:text-base mt-2">Advanced AI orchestration with bio-mimetic intelligence</p>
+          </div>
+        </div>
         
-        <main className="flex-1 overflow-auto p-3 sm:p-6">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
           {/* Hero Section - Swarm Intelligence */}
           <Card className="bg-gradient-to-br from-primary/20 via-dark-200 to-accent/20 border-primary/50 mb-8">
             <CardContent className="p-8">
