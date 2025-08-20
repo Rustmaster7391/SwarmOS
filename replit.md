@@ -17,6 +17,16 @@ Preferred communication style: Simple, everyday language.
 
 These pages represent stable, completed functionality that the user wants preserved.
 
+**Recent User Instructions (August 20, 2025)**:
+- Removed Deploy Swarm box and notification badge from dashboard top bar
+- Changed "Templates" to "Deploy Swarm" in navigation
+- Added collapsible sidebar functionality (logo and SwarmWare always visible)
+- Removed admin profile section from sidebar
+- Updated Quick Actions: "Deploy Template" → "Deploy Swarm", "Create Agent" → "Active Swarms" (links to /swarms)
+- Quick Actions now navigate properly: Security Report → /security, API Docs → /api-docs
+- Dynamic statistics: Active swarms increment with deployments, Security alerts fluctuate 1-5 every 30 minutes, Total agents show realistic growth, API calls grow gradually based on swarm count
+- Enhanced messaging with bio-inspired content emphasizing swarm intelligence, hyperscale deployment, and quantum-grade security
+
 ## System Architecture
 
 ### Frontend Architecture

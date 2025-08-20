@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 interface QuickActionsProps {
   onDeployTemplate?: () => void;
@@ -14,9 +15,11 @@ export default function QuickActions({
   onViewSecurityReport, 
   onOpenApiDocs 
 }: QuickActionsProps) {
+  const [, setLocation] = useLocation();
+
   const actions = [
     {
-      title: "Deploy Template",
+      title: "Deploy Swarm",
       description: "Start with pre-built swarms",
       icon: "fas fa-rocket",
       iconBg: "bg-primary/20",
@@ -25,13 +28,13 @@ export default function QuickActions({
       onClick: onDeployTemplate
     },
     {
-      title: "Create Agent",
-      description: "Build custom AI agents",
-      icon: "fas fa-plus-circle",
+      title: "Active Swarms",
+      description: "View and manage swarms",
+      icon: "fas fa-layer-group",
       iconBg: "bg-success/20",
       iconColor: "text-success",
       hoverBg: "group-hover:bg-success/30",
-      onClick: onCreateAgent
+      onClick: () => setLocation('/swarms')
     },
     {
       title: "Security Report",
@@ -40,7 +43,7 @@ export default function QuickActions({
       iconBg: "bg-warning/20",
       iconColor: "text-warning",
       hoverBg: "group-hover:bg-warning/30",
-      onClick: onViewSecurityReport
+      onClick: () => setLocation('/security')
     },
     {
       title: "API Docs",
@@ -49,7 +52,7 @@ export default function QuickActions({
       iconBg: "bg-accent/20",
       iconColor: "text-accent",
       hoverBg: "group-hover:bg-accent/30",
-      onClick: onOpenApiDocs
+      onClick: () => setLocation('/api-docs')
     }
   ];
 

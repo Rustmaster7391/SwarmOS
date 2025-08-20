@@ -54,7 +54,6 @@ export default function Dashboard() {
         <TopBar
           title="Dashboard"
           subtitle="Monitor and manage your AI agent swarms"
-          onCreateSwarm={() => setIsCreateSwarmModalOpen(true)}
         />
         
         <main className="flex-1 overflow-auto p-3 sm:p-6 data-grid matrix-rain">

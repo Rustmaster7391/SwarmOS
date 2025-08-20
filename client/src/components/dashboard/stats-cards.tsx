@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DashboardStats } from "@/lib/types";
@@ -12,6 +13,39 @@ export default function StatsCards() {
       return response.json();
     },
   });
+
+  // Dynamic stats that update over time
+  const [dynamicSecurityAlerts, setDynamicSecurityAlerts] = useState(3);
+  const [dynamicApiCalls, setDynamicApiCalls] = useState(8247);
+
+  useEffect(() => {
+    // Update security alerts every 30 minutes (fluctuate between 1-5)
+    const securityInterval = setInterval(() => {
+      setDynamicSecurityAlerts(Math.floor(Math.random() * 5) + 1);
+    }, 30 * 60 * 1000); // 30 minutes
+
+    // Update API calls every 30 minutes with gradual growth
+    const apiInterval = setInterval(() => {
+      const currentSwarms = stats?.activeSwarms || 2;
+      // Base growth rate: 50-150 calls per 30 minutes per swarm
+      const growthRate = Math.floor(Math.random() * 100) + 50;
+      const growth = currentSwarms * growthRate;
+      setDynamicApiCalls(prev => prev + growth);
+    }, 30 * 60 * 1000); // 30 minutes
+
+    return () => {
+      clearInterval(securityInterval);
+      clearInterval(apiInterval);
+    };
+  }, [stats?.activeSwarms]);
+
+  // Calculate total agents trend based on actual total
+  const getTotalAgentsTrend = (totalAgents: number) => {
+    if (totalAgents <= 6) return "+2 this week";
+    if (totalAgents <= 12) return "+5 this week";
+    if (totalAgents <= 25) return "+8 this week";
+    return "+12 this week";
+  };
 
   if (isLoading) {
     return (
@@ -31,7 +65,7 @@ export default function StatsCards() {
     {
       title: "Active Swarms",
       value: stats?.activeSwarms || 0,
-      trend: "+2 from yesterday",
+      trend: "Growing with new deployments",
       trendType: "positive",
       icon: "fas fa-layer-group",
       iconBg: "bg-primary/20",
@@ -40,7 +74,7 @@ export default function StatsCards() {
     {
       title: "Total Agents",
       value: stats?.totalAgents || 0,
-      trend: "+156 this week",
+      trend: getTotalAgentsTrend(stats?.totalAgents || 0),
       trendType: "positive",
       icon: "fas fa-robot",
       iconBg: "bg-success/20",
@@ -48,8 +82,8 @@ export default function StatsCards() {
     },
     {
       title: "Security Alerts",
-      value: stats?.securityAlerts || 0,
-      trend: "Requires attention",
+      value: dynamicSecurityAlerts,
+      trend: "Monitoring active",
       trendType: "warning",
       icon: "fas fa-shield-alt",
       iconBg: "bg-warning/20",
@@ -57,7 +91,7 @@ export default function StatsCards() {
     },
     {
       title: "API Calls",
-      value: `${((stats?.apiCalls || 0) / 1000).toFixed(1)}K`,
+      value: `${(dynamicApiCalls / 1000).toFixed(1)}K`,
       trend: "Last 24 hours",
       trendType: "neutral",
       icon: "fas fa-code",

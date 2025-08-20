@@ -49,23 +49,7 @@ export default function TopBar({ title, subtitle, onCreateSwarm }: TopBarProps) 
           {/* Notifications */}
           <button className="relative p-2 sm:p-3 text-gray-400 hover:text-accent transition-all duration-300 rounded-xl hover:bg-accent/10">
             <i className="fas fa-bell text-sm sm:text-lg"></i>
-            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-accent to-primary text-white text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center animate-pulse shadow-lg">
-              3
-            </span>
           </button>
-
-          {/* Create Swarm Button */}
-          {onCreateSwarm && (
-            <Button 
-              onClick={onCreateSwarm} 
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 shadow-lg hover:shadow-primary/25 transition-all duration-300 relative overflow-hidden group px-3 sm:px-4 py-2 text-xs sm:text-sm"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <i className="fas fa-plus mr-1 sm:mr-2 text-white"></i>
-              <span className="relative hidden sm:inline">Deploy Swarm</span>
-              <span className="relative sm:hidden">Deploy</span>
-            </Button>
-          )}
         </div>
       </div>
       
