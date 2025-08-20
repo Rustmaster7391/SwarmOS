@@ -1,19 +1,64 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import Sidebar from "@/components/layout/sidebar";
 import TopBar from "@/components/layout/topbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import type { Template } from "@shared/schema";
 
 export default function Templates() {
+  const [deployDialogOpen, setDeployDialogOpen] = useState(false);
+  const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
+  const [swarmName, setSwarmName] = useState("");
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
   const { data: templates, isLoading } = useQuery<Template[]>({
     queryKey: ['/api/templates'],
     queryFn: async () => {
       const response = await fetch('/api/templates');
       if (!response.ok) throw new Error('Failed to fetch templates');
       return response.json();
+    },
+  });
+
+  const deployMutation = useMutation({
+    mutationFn: async (data: { name: string; templateId: string }) => {
+      return apiRequest('/api/swarms', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: data.name,
+          templateId: data.templateId,
+          status: 'active',
+          description: `Deployed from ${selectedTemplate?.name} template`
+        })
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Swarm Deployed Successfully",
+        description: `${swarmName} is now active and ready for operations`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/swarms'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/dashboard/stats'] });
+      setDeployDialogOpen(false);
+      setSwarmName("");
+      setSelectedTemplate(null);
+    },
+    onError: () => {
+      toast({
+        title: "Deployment Failed",
+        description: "Failed to deploy swarm. Please try again.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -37,13 +82,72 @@ export default function Templates() {
     }
   };
 
+  const getTemplateCharacteristics = (template: Template) => {
+    switch (template.type) {
+      case 'cybersecurity':
+        return [
+          'Real-time threat detection using behavioral analysis and pattern recognition',
+          'Automated incident response with sub-second containment protocols',
+          'Self-learning defense mechanisms that adapt to new attack vectors',
+          'Quantum-encrypted communication channels for secure agent coordination'
+        ];
+      case 'data_analysis':
+        return [
+          'Multi-dimensional data fusion from structured and unstructured sources',
+          'Predictive modeling with 99.7% accuracy using ensemble learning',
+          'Real-time anomaly detection across millions of data points per second',
+          'Automated insight generation with natural language explanations'
+        ];
+      case 'automation':
+        return [
+          'Intelligent workflow orchestration with dynamic task prioritization',
+          'Self-optimizing processes that improve efficiency by 40-60% over time',
+          'Cross-platform integration supporting 200+ enterprise applications',
+          'Human-in-the-loop capabilities for complex decision making'
+        ];
+      case 'monitoring':
+        return [
+          'Comprehensive system health monitoring with predictive failure analysis',
+          'Multi-layered alerting system with intelligent escalation protocols',
+          'Performance optimization recommendations based on usage patterns',
+          'Distributed monitoring across hybrid cloud and on-premise environments'
+        ];
+      default:
+        return [
+          'Advanced AI coordination using swarm intelligence principles',
+          'Scalable architecture supporting thousands of concurrent agents',
+          'Real-time adaptation to changing operational requirements',
+          'Enterprise-grade security with end-to-end encryption'
+        ];
+    }
+  };
+
+  const handleDeploy = (template: Template) => {
+    setSelectedTemplate(template);
+    setSwarmName(`${template.name.replace(/\s+/g, '-').toLowerCase()}-${Date.now()}`);
+    setDeployDialogOpen(true);
+  };
+
+  const handlePreview = (template: Template) => {
+    setSelectedTemplate(template);
+    setPreviewDialogOpen(true);
+  };
+
+  const handleDeploySubmit = () => {
+    if (!selectedTemplate || !swarmName.trim()) return;
+    deployMutation.mutate({
+      name: swarmName.trim(),
+      templateId: selectedTemplate.id
+    });
+  };
+
   return (
     <div className="flex h-screen overflow-hidden dark">
       <Sidebar />
       
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopBar
-          title="Templates"
+          title="Deploy Swarm"
           subtitle="Next-gen swarm blueprints with emergent intelligence patterns"
         />
         
@@ -125,11 +229,20 @@ export default function Templates() {
                       </div>
                       
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline" className="flex-1">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="flex-1"
+                          onClick={() => handlePreview(template)}
+                        >
                           <i className="fas fa-eye mr-2"></i>
                           Preview
                         </Button>
-                        <Button size="sm" className="flex-1 bg-primary hover:bg-blue-700">
+                        <Button 
+                          size="sm" 
+                          className="flex-1 bg-primary hover:bg-blue-700"
+                          onClick={() => handleDeploy(template)}
+                        >
                           <i className="fas fa-rocket mr-2"></i>
                           Deploy
                         </Button>
@@ -152,6 +265,160 @@ export default function Templates() {
           )}
         </main>
       </div>
+
+      {/* Deploy Dialog */}
+      <Dialog open={deployDialogOpen} onOpenChange={setDeployDialogOpen}>
+        <DialogContent className="bg-dark-100 border-gray-700 text-white">
+          <DialogHeader>
+            <DialogTitle className="flex items-center text-white">
+              <i className="fas fa-rocket mr-3 text-primary"></i>
+              Deploy Swarm: {selectedTemplate?.name}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Configure and deploy your AI agent swarm for immediate operation
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div>
+              <Label htmlFor="swarmName" className="text-white font-medium">Swarm Name</Label>
+              <Input
+                id="swarmName"
+                value={swarmName}
+                onChange={(e) => setSwarmName(e.target.value)}
+                placeholder="Enter a unique name for your swarm"
+                className="mt-1 bg-dark-300 border-gray-600 text-white"
+              />
+            </div>
+            
+            {selectedTemplate && (
+              <div className="bg-dark-300 rounded-lg p-4 border border-gray-600">
+                <h4 className="text-white font-semibold mb-2 flex items-center">
+                  <i className={`${getTemplateIcon(selectedTemplate.type)} mr-2 text-primary`}></i>
+                  Template Configuration
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Type:</span>
+                    <Badge variant="outline" className="capitalize">
+                      {selectedTemplate.type.replace('_', ' ')}
+                    </Badge>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Agent Count:</span>
+                    <span className="text-white">{selectedTemplate.minAgents}-{selectedTemplate.maxAgents}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Status:</span>
+                    <Badge variant="outline" className="text-success border-success">Ready</Badge>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="flex space-x-3 pt-4">
+              <Button 
+                variant="outline" 
+                onClick={() => setDeployDialogOpen(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleDeploySubmit}
+                disabled={!swarmName.trim() || deployMutation.isPending}
+                className="flex-1 bg-primary hover:bg-blue-700"
+              >
+                {deployMutation.isPending ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin mr-2"></i>
+                    Deploying...
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-rocket mr-2"></i>
+                    Deploy Swarm
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Preview Dialog */}
+      <Dialog open={previewDialogOpen} onOpenChange={setPreviewDialogOpen}>
+        <DialogContent className="bg-dark-100 border-gray-700 text-white max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center text-white">
+              <i className="fas fa-eye mr-3 text-accent"></i>
+              Template Preview: {selectedTemplate?.name}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Key characteristics and capabilities of this swarm template
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedTemplate && (
+            <div className="space-y-6 mt-4">
+              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/30">
+                <div className={`p-4 rounded-lg ${getTemplateColor(selectedTemplate.type)}`}>
+                  <i className={`${getTemplateIcon(selectedTemplate.type)} text-2xl`}></i>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">{selectedTemplate.name}</h3>
+                  <p className="text-gray-300">{selectedTemplate.description}</p>
+                  <div className="flex items-center space-x-4 mt-2 text-sm">
+                    <span className="text-primary">
+                      <i className="fas fa-robot mr-1"></i>
+                      {selectedTemplate.minAgents}-{selectedTemplate.maxAgents} Agents
+                    </span>
+                    <Badge variant="outline" className="capitalize">
+                      {selectedTemplate.type.replace('_', ' ')}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-white font-semibold mb-4 flex items-center">
+                  <i className="fas fa-star mr-2 text-warning"></i>
+                  Key Characteristics
+                </h4>
+                <div className="space-y-3">
+                  {getTemplateCharacteristics(selectedTemplate).map((characteristic, index) => (
+                    <div key={index} className="flex items-start space-x-3 p-3 bg-dark-300 rounded-lg border border-gray-600">
+                      <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-primary text-sm font-bold">{index + 1}</span>
+                      </div>
+                      <p className="text-gray-300 text-sm leading-relaxed">{characteristic}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex space-x-3 pt-4 border-t border-gray-700">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setPreviewDialogOpen(false)}
+                  className="flex-1"
+                >
+                  Close Preview
+                </Button>
+                <Button 
+                  onClick={() => {
+                    setPreviewDialogOpen(false);
+                    handleDeploy(selectedTemplate);
+                  }}
+                  className="flex-1 bg-primary hover:bg-blue-700"
+                >
+                  <i className="fas fa-rocket mr-2"></i>
+                  Deploy This Template
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
