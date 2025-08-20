@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Security', href: '/security', icon: 'fas fa-shield-alt' },
   { name: 'Technology', href: '/technology', icon: 'fas fa-dna' },
   { name: 'Monitoring', href: '/monitoring', icon: 'fas fa-eye' },
-  { name: 'Docs/API', href: '/api-docs', icon: 'fas fa-code' },
+  { name: 'API Docs', href: '/api-docs', icon: 'fas fa-code' },
 ];
 
 export default function Sidebar() {
@@ -21,7 +21,7 @@ export default function Sidebar() {
   return (
     <div className={cn(
       "cyber-card border-r border-gray-700 flex flex-col relative overflow-hidden transition-all duration-300",
-      isCollapsed ? "w-20" : "w-64"
+      isCollapsed ? "w-20" : "w-64 min-w-64 max-w-64"
     )}>
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -97,7 +97,7 @@ export default function Sidebar() {
               </div>
               {!isCollapsed && (
                 <span className={cn(
-                  "font-medium transition-colors duration-300",
+                  "font-medium transition-colors duration-300 truncate flex-1",
                   isActive ? "text-white" : "group-hover:text-white"
                 )}>
                   {item.name}
