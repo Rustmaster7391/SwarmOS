@@ -318,16 +318,16 @@ export default function Security() {
                           className={`transition-none ${
                             alertsToResolve.has(alert.id) 
                               ? "bg-success hover:bg-success text-white border-success" 
-                              : "bg-warning hover:bg-warning text-dark-400 border-warning"
+                              : "bg-destructive hover:bg-destructive text-white border-destructive"
                           }`}
                           disabled={alertsToResolve.has(alert.id)}
                         >
                           <i className={`${
                             alertsToResolve.has(alert.id) 
                               ? "fas fa-check" 
-                              : "fas fa-exclamation-triangle"
+                              : "fas fa-wrench"
                           } mr-2`}></i>
-                          {alertsToResolve.has(alert.id) ? "Resolving..." : "Resolve"}
+                          {alertsToResolve.has(alert.id) ? "Resolved" : "Fixing"}
                         </Button>
                       </div>
                     </div>
