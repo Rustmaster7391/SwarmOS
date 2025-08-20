@@ -7,6 +7,7 @@ import type { DashboardStats } from "@/lib/types";
 export default function StatsCards() {
   const { data: stats, isLoading } = useQuery<DashboardStats>({
     queryKey: ['/api/dashboard/stats'],
+    refetchInterval: 60000, // Refetch every minute to get persistent updates
     queryFn: async () => {
       const response = await fetch(`/api/dashboard/stats?userId=demo-user`);
       if (!response.ok) throw new Error('Failed to fetch stats');
@@ -14,30 +15,8 @@ export default function StatsCards() {
     },
   });
 
-  // Dynamic stats that update over time
-  const [dynamicSecurityAlerts, setDynamicSecurityAlerts] = useState(3);
-  const [dynamicApiCalls, setDynamicApiCalls] = useState(8247);
-
-  useEffect(() => {
-    // Update security alerts every 30 minutes (fluctuate between 1-5)
-    const securityInterval = setInterval(() => {
-      setDynamicSecurityAlerts(Math.floor(Math.random() * 5) + 1);
-    }, 30 * 60 * 1000); // 30 minutes
-
-    // Update API calls every 30 minutes with gradual growth
-    const apiInterval = setInterval(() => {
-      const currentSwarms = stats?.activeSwarms || 2;
-      // Base growth rate: 50-150 calls per 30 minutes per swarm
-      const growthRate = Math.floor(Math.random() * 100) + 50;
-      const growth = currentSwarms * growthRate;
-      setDynamicApiCalls(prev => prev + growth);
-    }, 30 * 60 * 1000); // 30 minutes
-
-    return () => {
-      clearInterval(securityInterval);
-      clearInterval(apiInterval);
-    };
-  }, [stats?.activeSwarms]);
+  // Persistent stats are now handled by the backend
+  // The dashboard will automatically reflect the continuous progression
 
   // Calculate total agents trend based on actual total
   const getTotalAgentsTrend = (totalAgents: number) => {
@@ -82,7 +61,7 @@ export default function StatsCards() {
     },
     {
       title: "Security Alerts",
-      value: dynamicSecurityAlerts,
+      value: stats?.securityAlerts || 3,
       trend: "Monitoring active",
       trendType: "warning",
       icon: "fas fa-shield-alt",
@@ -91,9 +70,9 @@ export default function StatsCards() {
     },
     {
       title: "API Calls",
-      value: `${(dynamicApiCalls / 1000).toFixed(1)}K`,
-      trend: "Last 24 hours",
-      trendType: "neutral",
+      value: `${((stats?.apiCalls || 1400) / 1000).toFixed(1)}K`,
+      trend: "Continuously growing",
+      trendType: "positive",
       icon: "fas fa-code",
       iconBg: "bg-accent/20",
       iconColor: "text-accent"

@@ -5,6 +5,7 @@ import {
   templates,
   securityAlerts,
   apiCalls,
+  appState,
   type User,
   type UpsertUser,
   type Swarm,
@@ -17,6 +18,8 @@ import {
   type InsertSecurityAlert,
   type InsertApiCall,
   type ApiCall,
+  type InsertAppState,
+  type AppState,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, count, and, gte, sql } from "drizzle-orm";
@@ -61,6 +64,11 @@ export interface IStorage {
 
   // Log API calls
   logApiCall(call: InsertApiCall): Promise<void>;
+  
+  // Application state management for continuous progression
+  getAppState(key: string): Promise<AppState | undefined>;
+  setAppState(key: string, value: any): Promise<void>;
+  initializeAppState(): Promise<void>;
   
   // Database connection test
   testConnection(): Promise<boolean>;
@@ -241,26 +249,95 @@ export class DatabaseStorage implements IStorage {
       .leftJoin(swarms, eq(agents.swarmId, swarms.id))
       .where(eq(swarms.ownerId, userId));
 
-    // Security alerts
-    const [securityAlertsResult] = await db
-      .select({ count: count() })
-      .from(securityAlerts)
-      .leftJoin(swarms, eq(securityAlerts.swarmId, swarms.id))
-      .where(and(eq(swarms.ownerId, userId), eq(securityAlerts.resolved, false)));
+    // Get persistent API calls count
+    const apiCallsState = await this.getAppState('apiCallsTotal');
+    const currentApiCalls = apiCallsState ? (apiCallsState.value as number) : 1400;
 
-    // API calls in last 24 hours
-    const apiCallsCount = await this.getApiCallsCount('24h');
+    // Update API calls with gradual growth based on active swarms
+    const now = new Date();
+    const lastUpdateState = await this.getAppState('lastApiCallUpdate');
+    const lastUpdate = lastUpdateState ? new Date(lastUpdateState.value as string) : new Date();
+    const timeDiff = now.getTime() - lastUpdate.getTime();
+    const minutesPassed = Math.floor(timeDiff / (1000 * 60));
+
+    if (minutesPassed >= 1) { // Update every minute for realistic growth
+      const activeSwarmCount = Math.max(activeSwarmsResult.count, 1);
+      // Growth: 2-8 calls per minute per active swarm
+      const growthPerMinute = activeSwarmCount * (Math.floor(Math.random() * 6) + 2);
+      const totalGrowth = growthPerMinute * minutesPassed;
+      const newApiCalls = currentApiCalls + totalGrowth;
+      
+      await this.setAppState('apiCallsTotal', newApiCalls);
+      await this.setAppState('lastApiCallUpdate', now.toISOString());
+    }
+
+    // Get persistent security alerts count
+    const securityState = await this.getAppState('securityAlertsCount');
+    const currentSecurityAlerts = securityState ? (securityState.value as number) : 3;
+
+    // Update security alerts periodically (every 30 minutes in real time)
+    const lastSecurityUpdateState = await this.getAppState('lastSecurityUpdate');
+    const lastSecurityUpdate = lastSecurityUpdateState ? new Date(lastSecurityUpdateState.value as string) : new Date();
+    const securityTimeDiff = now.getTime() - lastSecurityUpdate.getTime();
+    const securityMinutesPassed = Math.floor(securityTimeDiff / (1000 * 60));
+
+    if (securityMinutesPassed >= 30) { // Update every 30 minutes
+      const newSecurityAlerts = Math.floor(Math.random() * 5) + 1; // 1-5 alerts
+      await this.setAppState('securityAlertsCount', newSecurityAlerts);
+      await this.setAppState('lastSecurityUpdate', now.toISOString());
+    }
+
+    const finalApiCalls = apiCallsState ? (apiCallsState.value as number) : currentApiCalls;
+    const finalSecurityAlerts = securityState ? (securityState.value as number) : currentSecurityAlerts;
 
     return {
       activeSwarms: activeSwarmsResult.count,
       totalAgents: totalAgentsResult.count,
-      securityAlerts: securityAlertsResult.count,
-      apiCalls: apiCallsCount,
+      securityAlerts: finalSecurityAlerts,
+      apiCalls: finalApiCalls,
     };
   }
 
   async logApiCall(call: InsertApiCall): Promise<void> {
     await db.insert(apiCalls).values(call);
+  }
+
+  async getAppState(key: string): Promise<AppState | undefined> {
+    const [state] = await db
+      .select()
+      .from(appState)
+      .where(eq(appState.key, key));
+    return state;
+  }
+
+  async setAppState(key: string, value: any): Promise<void> {
+    await db
+      .insert(appState)
+      .values({ key, value })
+      .onConflictDoUpdate({
+        target: appState.key,
+        set: { value, updatedAt: sql`NOW()` }
+      });
+  }
+
+  async initializeAppState(): Promise<void> {
+    const initialState = {
+      'apiCallsBase': 1400, // Start at 1.4k as requested
+      'apiCallsTotal': 1400,
+      'lastApiCallUpdate': new Date().toISOString(),
+      'securityAlertsCount': 3,
+      'lastSecurityUpdate': new Date().toISOString(),
+      'deploymentCount': 0,
+      'systemStartTime': new Date().toISOString()
+    };
+
+    // Initialize states if they don't exist
+    for (const [key, value] of Object.entries(initialState)) {
+      const existing = await this.getAppState(key);
+      if (!existing) {
+        await this.setAppState(key, value);
+      }
+    }
   }
 
   async testConnection(): Promise<boolean> {

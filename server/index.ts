@@ -49,6 +49,11 @@ app.use((req, res, next) => {
     }
     log("Database connection successful");
     
+    // Initialize application state for continuous progression
+    log("Initializing application state...");
+    await storage.initializeAppState();
+    log("Application state initialized");
+    
     const server = await registerRoutes(app);
 
     app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

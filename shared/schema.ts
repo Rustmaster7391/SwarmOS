@@ -89,6 +89,14 @@ export const apiCalls = pgTable("api_calls", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Application state for continuous progression
+export const appState = pgTable("app_state", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  key: varchar("key", { length: 100 }).notNull().unique(),
+  value: jsonb("value").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -123,6 +131,11 @@ export const insertApiCallSchema = createInsertSchema(apiCalls).omit({
   createdAt: true,
 });
 
+export const insertAppStateSchema = createInsertSchema(appState).omit({
+  id: true,
+  updatedAt: true,
+});
+
 // Types
 export type UpsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -136,3 +149,5 @@ export type InsertSecurityAlert = z.infer<typeof insertSecurityAlertSchema>;
 export type SecurityAlert = typeof securityAlerts.$inferSelect;
 export type InsertApiCall = z.infer<typeof insertApiCallSchema>;
 export type ApiCall = typeof apiCalls.$inferSelect;
+export type InsertAppState = z.infer<typeof insertAppStateSchema>;
+export type AppState = typeof appState.$inferSelect;

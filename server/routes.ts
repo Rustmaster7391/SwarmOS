@@ -81,6 +81,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertSwarmSchema.parse(req.body);
       const swarm = await storage.createSwarm(validatedData);
       
+      // Update deployment counter for persistent tracking
+      const deploymentState = await storage.getAppState('deploymentCount');
+      const currentCount = deploymentState ? (deploymentState.value as number) : 0;
+      await storage.setAppState('deploymentCount', currentCount + 1);
+      
       // Broadcast swarm creation
       broadcast({ type: 'swarm_created', data: swarm });
       
