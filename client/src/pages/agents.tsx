@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import DropdownNav from "@/components/layout/dropdown-nav";
+import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -249,7 +250,8 @@ export default function Agents() {
           </div>
         </div>
         
-        <main className="flex-1 flex flex-col lg:flex-row px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full gap-4 sm:gap-6">
+        <main className="flex-1 flex flex-col lg:flex-row px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full gap-4 sm:gap-6 relative">
+          <FloatingLogo className="lg:top-8 lg:right-8" />
           {/* Online Agents Panel */}
           <Card className="w-full lg:w-80 bg-dark-100 border-gray-700 flex flex-col max-h-64 lg:max-h-full">
             <CardHeader className="pb-3">

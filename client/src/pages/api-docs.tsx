@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import DropdownNav from "@/components/layout/dropdown-nav";
+import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -53,8 +54,9 @@ export default function ApiDocs() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
-            <Tabs defaultValue="overview" className="w-full">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
+          <FloatingLogo />
+          <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview">Product Overview</TabsTrigger>
               <TabsTrigger value="how-it-works">How It Works</TabsTrigger>

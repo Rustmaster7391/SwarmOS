@@ -4,6 +4,7 @@ import DropdownNav from "@/components/layout/dropdown-nav";
 import CreateSwarmModal from "@/components/modals/create-swarm-modal";
 import AgentSkillsModal from "@/components/modals/agent-skills-modal";
 import AgentTasksModal from "@/components/modals/agent-tasks-modal";
+import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -65,7 +66,8 @@ export default function Swarms() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
+          <FloatingLogo />
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (

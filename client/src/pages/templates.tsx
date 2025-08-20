@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import DropdownNav from "@/components/layout/dropdown-nav";
+import FloatingLogo from "@/components/ui/floating-logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -158,7 +159,8 @@ export default function Templates() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
+          <FloatingLogo />
           {/* Futuristic Applications Banner */}
           <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/30 mb-6 sm:mb-8">
             <CardContent className="p-4 sm:p-6">

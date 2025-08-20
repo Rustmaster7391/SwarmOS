@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from "@/components/ui/button";
+import swarmwareLogo from "../../assets/swarmware-logo.svg";
 
 interface NavItem {
   path: string;
@@ -82,10 +83,21 @@ export default function DropdownNav() {
           <span className="text-sm text-gray-400">{getCurrentPageTitle()}</span>
         </div>
 
-        {/* Status Indicator */}
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span className="text-xs text-green-400 hidden sm:inline">Live</span>
+        {/* Status Indicator and Logo */}
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-xs text-green-400 hidden sm:inline">Live</span>
+          </div>
+          
+          {/* SwarmWare Logo */}
+          <div className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+            <img 
+              src={swarmwareLogo} 
+              alt="SwarmWare" 
+              className="w-8 h-8 sm:w-10 sm:h-10"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import ActiveSwarms from "@/components/dashboard/active-swarms";
 import SecurityOverview from "@/components/dashboard/security-overview";
 import DefensiveMechanisms from "@/components/dashboard/defensive-mechanisms";
 import CreateSwarmModal from "@/components/modals/create-swarm-modal";
+import FloatingLogo from "@/components/ui/floating-logo";
 import { useWebSocket } from "@/hooks/use-websocket";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -56,7 +57,8 @@ export default function Dashboard() {
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full relative">
+          <FloatingLogo />
           <StatsCards />
           
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
