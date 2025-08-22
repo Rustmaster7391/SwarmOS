@@ -49,23 +49,24 @@ export default function Swarms() {
       
       <div className="flex flex-col">
         {/* Page Header */}
-        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white">Active Swarms</h1>
-              <p className="text-gray-400 text-sm sm:text-base mt-2">Monitor and manage your deployed AI agent networks</p>
+        <div className="bg-dark-200 border-b border-gray-700 px-3 sm:px-6 py-3 sm:py-6">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Active Swarms</h1>
+              <p className="text-gray-400 text-xs sm:text-sm lg:text-base mt-1 sm:mt-2">Monitor and manage your deployed AI agent networks</p>
             </div>
             <Button 
               onClick={() => setIsCreateSwarmModalOpen(true)}
-              className="bg-primary hover:bg-blue-700"
+              className="bg-primary hover:bg-blue-700 w-full sm:w-auto"
+              size="sm"
             >
               <i className="fas fa-plus mr-2"></i>
-              Deploy Swarm
+              <span className="hidden sm:inline">Deploy </span>Swarm
             </Button>
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-3 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto w-full">
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {[...Array(6)].map((_, i) => (

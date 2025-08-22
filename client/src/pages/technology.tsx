@@ -10,14 +10,14 @@ export default function Technology() {
       
       <div className="flex flex-col">
         {/* Page Header */}
-        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+        <div className="bg-dark-200 border-b border-gray-700 px-3 sm:px-6 py-3 sm:py-6">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Technology</h1>
-            <p className="text-gray-400 text-sm sm:text-base mt-2">Advanced AI orchestration with bio-mimetic intelligence</p>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Technology</h1>
+            <p className="text-gray-400 text-xs sm:text-sm lg:text-base mt-1 sm:mt-2">Advanced AI orchestration with bio-mimetic intelligence</p>
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-3 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto w-full">
           {/* Hero Section - Swarm Intelligence */}
           <Card className="bg-gradient-to-br from-primary/20 via-dark-200 to-accent/20 border-primary/50 mb-8">
             <CardContent className="p-8">

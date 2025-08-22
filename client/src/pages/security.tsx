@@ -197,14 +197,14 @@ export default function Security() {
       
       <div className="flex flex-col">
         {/* Page Header */}
-        <div className="bg-dark-200 border-b border-gray-700 px-4 sm:px-6 py-4 sm:py-6">
+        <div className="bg-dark-200 border-b border-gray-700 px-3 sm:px-6 py-3 sm:py-6">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Security</h1>
-            <p className="text-gray-400 text-sm sm:text-base mt-2">Bio-mimetic security orchestration with emergent threat intelligence</p>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Security</h1>
+            <p className="text-gray-400 text-xs sm:text-sm lg:text-base mt-1 sm:mt-2">Bio-mimetic security orchestration with emergent threat intelligence</p>
           </div>
         </div>
         
-        <main className="flex-1 px-4 sm:px-6 py-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-3 sm:px-6 py-4 sm:py-6 max-w-7xl mx-auto w-full">
           {/* Bio-Inspired Security Philosophy */}
           <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 mb-6 sm:mb-8">
             <CardContent className="p-4 sm:p-6">

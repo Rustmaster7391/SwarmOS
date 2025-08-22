@@ -30,8 +30,8 @@ export default function DropdownNav() {
   };
 
   return (
-    <div className="bg-dark-200 border-b border-gray-700 px-4 py-3">
-      <div className="flex items-center justify-between">
+    <div className="bg-dark-200 border-b border-gray-700 px-3 sm:px-4 py-3">
+      <div className="flex items-center justify-between max-w-full">
         {/* Simple Navigation Menu */}
         <div className="relative">
           <Button
@@ -39,10 +39,12 @@ export default function DropdownNav() {
             variant="ghost"
             className="flex items-center space-x-2 text-white hover:bg-dark-100 p-2 h-auto"
           >
-            {/* SwarmWare Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <i className="fas fa-dna text-white text-sm"></i>
+            {/* Hamburger Menu Icon */}
+            <div className="flex items-center space-x-3">
+              <div className="w-6 h-6 flex flex-col justify-center space-y-1">
+                <div className="w-full h-0.5 bg-white"></div>
+                <div className="w-full h-0.5 bg-white"></div>
+                <div className="w-full h-0.5 bg-white"></div>
               </div>
               <span className="font-bold text-lg">SwarmWare</span>
             </div>
@@ -50,7 +52,7 @@ export default function DropdownNav() {
           </Button>
           
           {isOpen && (
-            <div className="absolute top-full left-0 w-64 bg-dark-100 border border-gray-700 rounded-lg shadow-lg z-50 mt-1">
+            <div className="absolute top-full left-0 w-72 sm:w-64 bg-dark-100 border border-gray-700 rounded-lg shadow-lg z-50 mt-1">
               <div className="px-3 py-2 border-b border-gray-700">
                 <p className="text-sm text-gray-400">Navigation</p>
               </div>
@@ -80,12 +82,12 @@ export default function DropdownNav() {
         </div>
 
         {/* Current Page Title - Mobile Only */}
-        <div className="block sm:hidden">
+        <div className="block sm:hidden flex-1 text-center">
           <span className="text-sm text-gray-400">{getCurrentPageTitle()}</span>
         </div>
 
         {/* Status Indicator and Logo */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <span className="text-xs text-green-400 hidden sm:inline">Live</span>
@@ -96,7 +98,7 @@ export default function DropdownNav() {
             <img 
               src={swarmwareLogo} 
               alt="SwarmWare" 
-              className="w-8 h-8 sm:w-10 sm:h-10"
+              className="w-6 h-6 sm:w-8 sm:h-8"
             />
           </div>
         </div>
